@@ -1,0 +1,12 @@
+.container img {
+	width: 200px;
+}
+
+.container h1,h3 {
+	margin-top: 80px;
+}
+
+.container {
+	margin-top: 20px;
+	text-align: center;
+}
