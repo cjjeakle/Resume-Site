@@ -1,17 +1,29 @@
 !!! 5
 html(lang="en")
-  head
-    title= title
-    // css
-    link(rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.css")
-    link(rel="stylesheet", href="/css/style.css")
-    
-    // js
-    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js", type='text/javascript')
-    script(src="js/main.js", type='text/javascript')
-      
-  body
-    .container
-      img(src="/img/logo.jpg")
-      h1.title= title
-      h3= text
+	head
+		title = title
+		// css
+		//link(rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.css")
+		link(rel="stylesheet", href="/css/style.css")
+
+		// js
+		//script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js", type='text/javascript')
+		script(src="js/main.js", type='text/javascript')
+
+	body
+		.title
+			h1.title Chris Jeakle
+		.container
+			#nav
+				h3 External Sites
+				ul
+					li
+						a(href = "https://www.github.com/cjjeakle") My GitHub
+					li
+						a(href = "http://www.linkedin.com/cjjeakle") My LinkedIn
+					li
+						a(href = "") Other Filler
+
+			#content
+				img(src="/img/me.jpg")
+				h3 #YOLO

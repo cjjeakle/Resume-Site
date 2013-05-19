@@ -34,16 +34,6 @@
 	list-style-type:none;
 }
 
-a {
-	text-decoration:none;
-	color:#666767;
-	outline:none;
-}
-
-a:hover {
-	color:#000;
-}
-
 #content {
 	padding-left:2%;
 	margin-left:20%;

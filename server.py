@@ -10,7 +10,7 @@ app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 @app.route('/')
 def index():
 	obj = {
-		"title": "My Website",
+		"title": "Chris Jeakle",
 		"text": "#YOLO"
 	};
 	return render_template('index.jade', **obj)
@@ -24,7 +24,6 @@ def send_pic(filename):
 if __name__ == '__main__':
 	# Bind to PORT if defined (environment variable on heroku)
 	port = int(os.environ.get('PORT', 3000))
-	
-	app.run(host='0.0.0.0', port=port, debug=True)
 
+	app.run(host='0.0.0.0', port=port, debug=True)
 
