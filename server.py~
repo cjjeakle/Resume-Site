@@ -25,14 +25,15 @@ def myClasses():
 	myEnrollment = ["EECS 381: Object-Oriented and Advanced Programming",
 		"EECS 484: Database Management Systems"]
 	
-	myFutureClasses = ["EECS 482: Introduction to Operating Systems"]
+	myFutureClasses = ["EECS 443: Senior Thesis Course (Honors)",
+		"EECS 482: Introduction to Operating Systems"]
 	
 	obj = {
 		"myClasses": myClasses,
 		"myEnrollment": myEnrollment,
 		"myFutureClasses": myFutureClasses
 	};
-	return render_template('myClasses', **obj)
+	return render_template('myClasses.jade', **obj)
 	
 	
 # this guy handles static files

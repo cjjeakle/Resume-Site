@@ -7,26 +7,11 @@ html(lang="en")
 			include /navbar
 			#content
 				div
-					h2 My Classes
-					h3 I am Currently Enrolled In:
-					each class in myEnrollment
-						= class
-						br
-					
-					h3 I Plan to Take:
-					each class in myFutureClasses
-						= class
-						br
-						
-					h3 I Have Completed:
-					each class in myClasses
-						= class
-						br
-				br
-				br
-				br
-				h3 #YOLO
-				
+					|This site was made with the help of the 
+					a(href = "https://github.com/michiganhackers/heroku-py-demo") Michigan Hackers.
+					br
+					|You can see my implementation on
+					a(href = "https://github.com/cjjeakle/Resume-Site") my GitHub
 				
 				
 				

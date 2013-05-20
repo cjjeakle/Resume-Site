@@ -1,5 +1,3 @@
-
-
 ## cjjeake's Resume Site
 
 Build with the help of the Michigan Hackers.
@@ -7,7 +5,7 @@ See their awesome tutorial for getting started making websites at:
 https://github.com/michiganhackers/heroku-py-demo.git
 
 ----
-## Below are reminders for myself and other on how to build and use the actual project:
+## Below are reminders for myself and others on how to build and deploy a flask app:
 
 ### Locally Running
 - Run `virtualenv venv --distribute` to start up a virtual environment. 

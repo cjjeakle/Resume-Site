@@ -8,7 +8,7 @@ html(lang="en")
 			#content
 				div
 					h2 My Classes
-					h3 I am Currently Enrolled In:
+					h3 In the Fall I will Take:
 					each class in myEnrollment
 						= class
 						br
@@ -18,11 +18,8 @@ html(lang="en")
 						= class
 						br
 						
-					h3 I Have Completed:
+					h3 I Have Taken:
 					each class in myClasses
 						= class
 						br
-				br
-				br
-				br
-				h3 #YOLO
+

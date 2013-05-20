@@ -18,14 +18,15 @@ def index():
 def myClasses():
 
 	myClasses = ["EECS 183: Elementary Programming Concepts", "EECS 203: Discrete Mathematics",
-	"EECS 280: Programming & Data Structures", "EECS 281: Data Structures & Algorithms",
-	"EECS 370: Computer Architecture", "EECS 376: Foundations of Computer Science",
-	"EECS 481: Software Engineering"]
+		"EECS 280: Programming & Data Structures", "EECS 281: Data Structures & Algorithms",
+		"EECS 370: Computer Architecture", "EECS 376: Foundations of Computer Science",
+		"EECS 481: Software Engineering"]
 	
 	myEnrollment = ["EECS 381: Object-Oriented and Advanced Programming",
 		"EECS 484: Database Management Systems"]
 	
-	myFutureClasses = ["EECS 482: Introduction to Operating Systems"]
+	myFutureClasses = ["EECS 443: Senior Thesis Course (Honors)",
+		"EECS 482: Introduction to Operating Systems"]
 	
 	obj = {
 		"myClasses": myClasses,
