@@ -1,18 +1,54 @@
+body {
+  background-color:#fff;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
+  line-height:1.6em;
+  text-align:center;
+}
+
 .title {
 	float: top;
-	text-align: center;
 }
+
+#titleImg {
+	padding-left: 20%;
+	margin-left: 5.5%;
+	margin-right: 15px;
+	float: left; 
+}
+
+#titleImg img {
+	height: 90px;
+}
+
+#titleText {
+	float: left;
+	text-align: left;
+	width: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+#titleText h1{
+	 line-height:0em;
+}
+
+.filler {
+	clear: both;
+	margin-bottom: 10px;
+}
+	
 
 .container img {
 	width: 200px;
 }
 
-.container h1,h3 {
+.container h1,h2,h3 {
 	margin-top: 5px;
+	margin-bottom: 0px;
 }
 
 .container {
-	margin-top: 20px;
+	clear: both;
+	float: top;
 	margin-left: 2.5%;
 	margin-right: 2.5%;
 	text-align: left;
@@ -21,7 +57,7 @@
 #nav {
 	border-right:1px solid #666767;
 	float:left;
-	width: 15%;
+	width: 20%;
 	text-align: center;
 	padding-right:2%;
   	/*text-transform:uppercase;*/
@@ -31,6 +67,7 @@
 #nav ul {
 	text-align: right;
 	margin-top: 0px;
+	margin-bottom: 0px;
 	list-style-type:none;
 }
 
