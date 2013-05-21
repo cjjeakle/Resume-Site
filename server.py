@@ -1,5 +1,8 @@
 import os
+import sudokuSolver
 from flask import Flask,render_template,send_from_directory
+#from flask.ext.wtf import Form
+#from wtforms.ext.sqlalchemy.orm import model_form
 import pyjade
 
 app = Flask(__name__)
@@ -34,7 +37,21 @@ def myClasses():
 		"myFutureClasses": myFutureClasses
 	};
 	return render_template('myClasses.jade', **obj)
-	
+
+@app.route('/sudokuSolver')
+def sudokuSolver():
+
+	squareDefaults = [0, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+		#the default values for each sudoku square
+		#the first 0 indicates that the square has no solution, each two
+		#indicates that the value of its index is a valid possibility for that square
+	userInput = [i[:] for i in [[squareDefaults]*9]*9]
+	#initilizes a 9x9 array of these squares
+
+	obj = {
+		"userInput": userInput
+	};
+	return render_template('sudokuSolver.jade', **obj)
 	
 # this guy handles static files
 @app.route('/<path:filename>')

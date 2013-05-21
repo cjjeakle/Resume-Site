@@ -89,6 +89,9 @@ a:hover {
 	font-size:85%;
 }
 
+#content a {
+  color:blue;
+}
 
 
 

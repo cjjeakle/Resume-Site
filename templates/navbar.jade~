@@ -5,7 +5,9 @@
 			a(href = '/') Home
 		li
 			a(href = '/myClasses') My Classes
-	h3 External Sites
+		li
+			a(href = '/Christopher_Jeakle_Resume.pdf') My Resume (PDF)
+	h3 External Links
 	ul
 		li
 			a(href = "https://www.github.com/cjjeakle") My GitHub

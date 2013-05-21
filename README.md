@@ -24,3 +24,11 @@ https://github.com/michiganhackers/heroku-py-demo.git
 
 - `heroku ps:scale web=1` This gives your app one `web worker`.
 - `heroku open` This will go to yourappname.herokuapp.com
+
+## Next Time You Develop
+
+`source venv/bin/activate`
+`python server.py` to run locally.
+`git commit -am "commit message"`
+`git push heroku master` Update Heroku, no need to scale.
+`heroku open`
