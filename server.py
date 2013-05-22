@@ -237,7 +237,7 @@ def solveSingletons (board):
 	for i in range(9):
 		for j in range(9):
 			#if no solution for this square, check possibilities
-			if board[i][j][9] == 0:
+			if board[i][j][0] == 0:
 				numPossible = 0
 				possibleAns = 0
 				for n in range (1, 10):
@@ -246,11 +246,8 @@ def solveSingletons (board):
 						possibleAns = n
 				#if there is only one possibility, that is sol
 				if numPossible == 1:
-					board [i][j][possibleAns] = 1
-					board [i][j][9] = possibleAns
-					board = eliminateSubBoard(board, i, j, possibleAns)
-					board = eliminateRow (board, i, j, possibleAns)
-					board = eliminateCol (board, i, j, possibleAns)
+					clearSquareConflicts(board, i, j, possibleAns)
+					clearBoardConflicts(board, i, j, possibleAns)
 	return board
 
 #finds lone possibilities and makes them the designated solution
@@ -259,8 +256,8 @@ def findLoneSolutions (board):
 		for j in range(9):
 			board = rowLoneSolutions (board, i, j)
 			board = colLoneSolutions (board, i, j)
-			board = onlyInARow (board, i, j)
-			board = onlyInACol (board, i, j)
+			board = eliminateOutsideSubboardRow (board, i, j)
+			board = eliminateOutsideSubboardCol (board, i, j)
 	board = subBoardLoneSolution (board)
 	return board
 	
@@ -272,20 +269,14 @@ def rowLoneSolutions (board, row, col):
 		if board[row][col][n] == 2:
 			alternatives = 0
 			for j in range(9): 
-				if board [row][j][9] == 0 and not j == col and\
+				if board [row][j][0] == 0 and not j == col and\
 				board[row][j][n] == 2:
 					alternatives += 1
 			#if a number is a possible in the given location and 
 			#nowhere else in the row, then it is that square's sol
-			if alternatives == 0 and board[row][col][n] == 2:
-				board[row][col][0] = n
-				board[row][col][n] = 1
-				for x in range(9):
-					if not x == n:
-						board[row][col][x] = 0;
-				board = eliminateSubBoard (board, row, col, n)
-				board = eliminateRow (board, row, col, n)
-				board = eliminateCol (board, row, col, n)
+			if alternatives == 0:
+				clearSquareConflicts(board, row, col, n)
+				clearBoardConflicts(board, row, col, n)
 	return board
 	
 
@@ -296,20 +287,14 @@ def colLoneSolutions (board, row, col):
 		if board[row][col][n] == 2:
 			alternatives = 0
 			for i in range (9):
-				if board [i][col][9] == 0 and not i == row and\
+				if board [i][col][0] == 0 and not i == row and\
 				board[i][col][n] == 2:
 					alternatives += 1
 			#if a number is a possible in the given location and 
 			#nowhere else in the col, then it is that square's sol
-			if alternatives == 0 and board[row][col][n] == 2:
-				board[row][col][0] = n
-				board[row][col][n] = 1
-				for x in range(9):
-					if not x == n:
-						board[row][col][x] = 0
-				board = eliminateSubBoard (board, row, col, n)
-				board = eliminateRow (board, row, col, n)
-				board = eliminateCol (board, row, col, n)
+			if alternatives == 0:
+				clearSquareConflicts(board, row, col, n)
+				clearBoardConflicts(board, row, col, n)
 	return board
 
 
@@ -332,22 +317,19 @@ def subBoardLoneSolution (board):
 				#if a number is possible in only one location,
 				#it is that location's solution
 				if possibilities == 1:
-					board [row][col][0] = n
-					board [row][col][n] = 1
-					for x in range(9):
-						if not x == n:
-							board[row][col][x] = 0
-					board = eliminateSubBoard(board, row, col, n)
-					board = eliminateRow (board, row, col, n)
-					board = eliminateCol (board, row, col, n)
+					clearSquareConflicts(board, row, col, n)
+					clearBoardConflicts(board, row, col, n)
 	return board
 
-def onlyInACol (board, row, col):
+#Identifies possible solutions that only exist in a single col of a sub-board
+#This information allows us to eliminate the number as a possibility in the col outside
+#the current sub-board
+def eliminateOutsideSubboardCol (board, row, col):
 	subBoardRow = row//3
 	subBoardCol = col//3
 	outsideCol = 0
 
-	#iterate through numbers
+	#iterate through possible square solutions
 	for n in range (1, 10):
 		#if a number is possible for the given square
 		if board[row][col][n] == 2:
@@ -367,7 +349,8 @@ def onlyInACol (board, row, col):
 					board[i][col][n] = 0
 	return board
 
-def onlyInARow (board, row, col):
+#see eliminateOutsideSubboardCol for details on this function
+def eliminateOutsideSubboardRow (board, row, col):
 	subBoardRow = row//3
 	subBoardCol = col//3
 	outsideRow = 0
