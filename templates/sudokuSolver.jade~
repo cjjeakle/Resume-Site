@@ -7,13 +7,15 @@ html(lang="en")
 			include /navbar
 			#content
 				div
+					=givens
+					br
 					i = 0
 					each row in userInput	
 						i = i + 1	
 						j = 0
 						each col in row	
 							j = j + 1
-							=col[0]
+							=col
 							if (j % 9 != 0)
 								&nbsp;&nbsp;&nbsp;
 							if (j % 3 == 0)
@@ -22,5 +24,6 @@ html(lang="en")
 						br
 						if (i % 3 == 0)
 							br
+		include /footer
 						
 								

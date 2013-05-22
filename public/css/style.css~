@@ -93,8 +93,26 @@ a:hover {
   color:blue;
 }
 
+.footer {
+	border-top: 1px solid #666767;
+	float: bottom;
+	text-align:middle;
+}
 
+#footerLeft{
+	float:left;
+	width: 30%
+}
 
+#footerMid{
+	float:none;
+	width:30%;
+}
+
+#footerRight{
+	float:none;
+	width: 30%;
+}
 
 
 

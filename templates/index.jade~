@@ -10,10 +10,10 @@ html(lang="en")
 					|This site was made with the help of the 
 					a(href = "https://github.com/michiganhackers/heroku-py-demo") Michigan Hackers.
 					br
-					|You can see my implementation on
+					|You can see my implementation at
 					a(href = "https://github.com/cjjeakle/Resume-Site") my GitHub
 				
-				
+	include /footer	
 				
 				
 				

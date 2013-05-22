@@ -1,4 +1,5 @@
 import os
+import collections
 #import sudokuSolver
 from flask import Flask,render_template,send_from_directory
 #from flask.ext.wtf import Form
@@ -40,16 +41,53 @@ def myClasses():
 
 @app.route('/sudokuSolver')
 def sudokuSolver():
+	#very hard
+	userInput = [[5, 0, 0, 3, 0, 0, 0, 0, 0],
+				[3, 0, 0, 9, 5, 0, 0, 6, 0],
+				[2, 8, 0, 0, 0, 0, 0, 0, 0],
+				[4, 9, 0, 0, 3, 0, 0, 5, 0],
+				[0, 0, 5, 0, 0, 0, 8, 0, 0],
+				[0, 6, 0, 0, 2, 0, 0, 9, 3],
+				[0, 0, 0, 0, 0, 0, 0, 2, 1],
+				[0, 2, 0, 0, 9, 4, 0, 0, 7],
+				[0, 0, 0, 0, 0, 6, 0, 0, 5]]
+				
+	userInput = [
+				[0, 0, 0,  0, 0, 0,  0, 0, 0],
+				[0, 0, 0,  0, 0, 0,  0, 0, 0],
+				[0, 0, 0,  0, 0, 0,  0, 0, 0],
+				
+				[0, 0, 0,  0, 0, 0,  0, 0, 0],
+				[0, 0, 0,  0, 0, 0,  0, 0, 0],
+				[0, 0, 0,  0, 0, 0,  0, 0, 0],
+				
+				[0, 0, 0,  0, 0, 0,  0, 0, 0],
+				[0, 0, 0,  0, 0, 0,  0, 0, 0],
+				[0, 0, 0,  0, 0, 0,  0, 0, 0]
+				]
+	#easy
+	userInput = [
+				[0, 0, 8,  0, 0, 0,  3, 0, 1],
+				[0, 1, 0,  0, 3, 0,  8, 5, 4],
+				[5, 2, 0,  0, 0, 0,  9, 0, 0],
+				
+				[0, 0, 7,  0, 0, 3,  0, 1, 0],
+				[3, 5, 4,  0, 8, 0,  6, 7, 9],
+				[0, 9, 0,  5, 0, 0,  2, 0, 0],
+				
+				[0, 0, 9,  0, 0, 0,  0, 3, 6],
+				[6, 4, 2,  0, 7, 0,  0, 9, 0],
+				[7, 0, 5,  0, 0, 0,  4, 0, 0]
+				]
+	
+	#userInput = [i[:] for i in [[0]*9]*9]
+	#i = 0
+	#initilizes a 9x9 array of squares with no input
 
-	squareDefaults = [0, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-		#the default values for each sudoku square
-		#the first 0 indicates that the square has no solution, each two
-		#indicates that the value of its index is a valid possibility for that square
-	userInput = [i[:] for i in [[squareDefaults]*9]*9]
-	#initilizes a 9x9 array of these squares
-
+	userInput, givens = sudokuSolver(userInput)
 	obj = {
-		"userInput": userInput
+		"userInput": userInput,
+		"givens":givens
 	};
 	return render_template('sudokuSolver.jade', **obj)
 	
@@ -65,6 +103,6 @@ if __name__ == '__main__':
 
 	app.run(host='0.0.0.0', port=port, debug=True)
 	
-	
+
 	
 

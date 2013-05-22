@@ -18,8 +18,9 @@ html(lang="en")
 						= class
 						br
 						
-					h3 I Have Taken:
+					h3 I Have Completed:
 					each class in myClasses
 						= class
 						br
+		include /footer
 

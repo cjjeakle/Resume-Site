@@ -1,5 +1,34 @@
+def sudokuSolver (userInput):
+	temp = [[0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+			[0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+			[0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+			[0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+			[0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+			[0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+			[0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+			[0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+			[0, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
+	board = []
+	givens = 0
+	for i in range(9):
+		board.append(temp)
+	for i in range(9):
+		for j in range(9):
+			if (userInput[i][j] >= 1):
+				givens += 1
+				clearSquareConflicts(board, i, j, userInput[i][j])
+				clearBoardConflicts(board, i, j, userInput[i][j])
+	if givens < 10:
+		return userInput
+	board = branchNbound(board)
+	if board:
+		for i in range(9):
+			for j in range(9):
+				userInput[i][j] = board[i][j][0]
+	return userInput
+
 def branchNbound (board):
-	q = deque #use a deque as a queue
+	q = collections.deque() #use a deque as a queue
 	q.append(board)
 	while q and not solution(q[0]):
 		#traverse rows and cols
@@ -8,23 +37,15 @@ def branchNbound (board):
 				
 				#guess each unsolved square, eliminate conflicts that arise
 				if not board[i][j][0] == 0:
-					#if this square is solved,
-					#dont guess it
+					#if this square is solved, don't guess it
 					continue
 				#if a guess is possible, try it
 				for n in range(1,10) and q and q[0][i][j][n] == 2:
 					temp = q[0]
 
-					temp [i][j][0] = n
-					temp [i][j][n] = 1
+					temp = clearSquareConflicts(temp, i, j, n)
 					
-					#we've guessed a solution for this square, so eliminate
-					#other numbers as possibilities for it
-					for x in range(1, 10):
-						if not x == n:
-							temp[i][j][x] = 0
-							
-					temp = clearConflicts(temp, i, j, n)
+					temp = clearBoardConflicts(temp, i, j, n)
 
 					if valid(temp):
 						q.append(temp)
@@ -44,17 +65,23 @@ def valid (board):
 				anyPossible = false;
 				for n in range(1, 10):
 					if board[i][j][n] != 0:
-						anyPossible = true
+						anyPossible = True
 				if (not anyPossible):
 					return false
-	return true
+	return True
 
+def clearSquareConflicts (board, row, col, basis):
+	board[row][col][0] = basis
+	board[row][col][basis] = 1
+	for n in range(1, 10):
+		if not n == basis:
+			board[row][col][n] = 0
+	return board
 
-def clearConflicts (board, row, col, basis):
-	n += 1
-	board = eliminateSubBoard(board, basis , row, col)
-	board = eliminateRow (board, basis , row, col)
-	return eliminateCol (board, basis, row, col)
+def clearBoardConflicts (board, row, col, basis):
+	board = eliminateSubBoard(board, row, col, basis)
+	board = eliminateRow (board, row, col, basis)
+	return eliminateCol (board, row, col, basis)
 
 
 def eliminateSubBoard (board, row, col, basis):
@@ -87,13 +114,5 @@ def solution (board):
 	for i in range(9):
 		for j in range(9):
 			if board[i][j][0] == 0:
-				return false
-	return true
-	
-	
-	
-	
-	
-	
-	
-	
+				return False
+	return True
