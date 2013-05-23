@@ -3,7 +3,7 @@ import pyjade
 import collections
 #import sudokuSolver
 from flask import Flask,render_template,send_from_directory
-from flask.ext.wtf import Form, TextField, TextAreaField, TextArea
+#from flask.ext.wtf import Form, TextField, TextAreaField, TextArea
 
 app = Flask(__name__)
 # use the jade template engine
@@ -44,7 +44,7 @@ def myClasses():
 @app.route('/sudokuSolver')
 def sudokuSolver():
 
-	userInput = sudokuSolver(userInput)
+	#userInput = sudokuSolver(userInput)
 	obj = {
 		"userInput": userInput
 	};

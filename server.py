@@ -44,9 +44,9 @@ def myClasses():
 @app.route('/sudokuSolver')
 def sudokuSolver():
 
-	userInput = sudokuSolver(userInput)
+	#userInput = sudokuSolver(userInput)
 	obj = {
-		"userInput": userInput
+		#"userInput": userInput
 	};
 	return render_template('sudokuSolver.jade', **obj)
 	

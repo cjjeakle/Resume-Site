@@ -5,8 +5,8 @@ block append content
 		div
 			br
 			i = 0
-			each row in userInput	
-				i = i + 1	
+//			each row in userInput	
+//				i = i + 1	
 				j = 0
 				each col in row	
 					j = j + 1

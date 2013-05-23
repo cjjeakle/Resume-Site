@@ -7,6 +7,8 @@
 			a(href = '/myClasses') My Classes
 		li
 			a(href = 'sudokuSolver') Solve Sudokus!
+		li
+			a(href = '/Christopher_Jeakle_Resume.pdf') My Resume (PDF)
 	h3 External Links
 	ul
 		li
