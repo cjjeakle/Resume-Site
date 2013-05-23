@@ -1,0 +1,13 @@
+!!! 5
+html(lang="en")
+	include includes/head
+	body
+		include includes/titlebar
+		.container
+			include includes/navbar
+			block content
+			#rightEdge
+				block rightEdge
+				
+				
+	include includes/footer
