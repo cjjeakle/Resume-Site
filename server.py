@@ -41,17 +41,7 @@ def myClasses():
 
 @app.route('/sudokuSolver')
 def sudokuSolver():
-	#very hard
-	userInput = [[5, 0, 0, 3, 0, 0, 0, 0, 0],
-				[3, 0, 0, 9, 5, 0, 0, 6, 0],
-				[2, 8, 0, 0, 0, 0, 0, 0, 0],
-				[4, 9, 0, 0, 3, 0, 0, 5, 0],
-				[0, 0, 5, 0, 0, 0, 8, 0, 0],
-				[0, 6, 0, 0, 2, 0, 0, 9, 3],
-				[0, 0, 0, 0, 0, 0, 0, 2, 1],
-				[0, 2, 0, 0, 9, 4, 0, 0, 7],
-				[0, 0, 0, 0, 0, 6, 0, 0, 5]]
-				
+
 	userInput = [
 				[0, 0, 0,  0, 0, 0,  0, 0, 0],
 				[0, 0, 0,  0, 0, 0,  0, 0, 0],
@@ -66,7 +56,7 @@ def sudokuSolver():
 				[0, 0, 0,  0, 0, 0,  0, 0, 0]
 				]
 	#easy
-	userInput = [
+	easy = [
 				[0, 0, 8,  0, 0, 0,  3, 0, 1],
 				[0, 1, 0,  0, 3, 0,  8, 5, 4],
 				[5, 2, 0,  0, 0, 0,  9, 0, 0],
@@ -79,11 +69,36 @@ def sudokuSolver():
 				[6, 4, 2,  0, 7, 0,  0, 9, 0],
 				[7, 0, 5,  0, 0, 0,  4, 0, 0]
 				]
-	
-	#userInput = [i[:] for i in [[0]*9]*9]
-	#i = 0
-	#initilizes a 9x9 array of squares with no input
+	#hard
+	hard = [
+				[0, 7, 0,  0, 0, 0,  0, 0, 0],
+				[1, 5, 0,  0, 0, 6,  0, 0, 4],
+				[0, 0, 0,  5, 4, 8,  7, 0, 0],
+				
+				[7, 8, 9,  0, 0, 0,  6, 0, 0],
+				[0, 0, 0,  0, 6, 0,  0, 0, 0],
+				[0, 0, 4,  0, 0, 0,  9, 7, 5],
+				
+				[0, 0, 2,  8, 7, 9,  0, 0, 0],
+				[5, 0, 0,  1, 0, 0,  0, 2, 9],
+				[0, 0, 0,  0, 0, 0,  0, 4, 0]
+				]
+	#very hard
+	veryHard = [
+				[7, 0, 0,  0, 0, 4,  0, 3, 0],
+				[1, 0, 0,  0, 8, 7,  5, 0, 0],
+				[0, 5, 0,  0, 0, 0,  0, 0, 0],
+				
+				[2, 6, 0,  5, 0, 0,  0, 0, 0],
+				[0, 3, 8,  0, 0, 0,  9, 2, 0],
+				[0, 0, 0,  0, 0, 8,  0, 6, 4],
+				
+				[0, 0, 0,  0, 0, 0,  0, 7, 0],
+				[0, 0, 5,  4, 9, 0,  0, 0, 1],
+				[0, 4, 0,  6, 0, 0,  0, 0, 9]
+				]
 
+	userInput = veryHard
 	userInput, givens = sudokuSolver(userInput)
 	obj = {
 		"userInput": userInput,
@@ -118,16 +133,17 @@ def sudokuSolver (userInput):
 				givens += 1
 				board[i][j][0] = userInput[i][j]
 				clearSquareConflicts(board, i, j, userInput[i][j])
-				
+			
 	for i in range(9):
 		for j in range(9):
 			if (board[i][j][0] >= 1):
 				clearBoardConflicts(board, i, j, board[i][j][0])
-	if givens < 12:
-		return userInput, givens
-	#board, givens = branchNbound(board)
 	
 	for i in range(10):
+		board = solveSingletons(board)
+		board = findLoneSolutions(board)
+	board, givens = branchNbound(board)
+	for i in range(5):
 		board = solveSingletons(board)
 		board = findLoneSolutions(board)
 	
@@ -143,33 +159,29 @@ def branchNbound (board):
 	q = collections.deque() #use a deque as a queue
 	q.append(board)
 	while q and not solution(q[0]):
-		iters += 1
 		#traverse rows and cols
 		copy = q.popleft()
 		for i in range(9):
 			for j in range(9):
 				#guess each unsolved square, eliminate conflicts that arise
-				if not board[i][j][0] == 0:
-					#if this square is solved, don't guess it
-					continue
-				#if a guess is possible, try it
-				n = 1
-				while n < 10:
-					if (copy[i][j][n] == 2):
-						temp = copy
-						temp = clearSquareConflicts(temp, i, j, n)
+				if copy[i][j][0] == 0:
+					n = 1
+					while n < 10:
+						temp = clearSquareConflicts(copy, i, j, n)
 						temp = clearBoardConflicts(temp, i, j, n)
-						temp = solveSingletons(temp)
-						temp = findLoneSolutions(temp)
-
+						
+						for k in range(10):
+								temp = solveSingletons(temp)
+								temp = findLoneSolutions(temp)
+						
 						if valid(temp):
 							q.append(temp)
 						n += 1
 	if q:
-		return q[0], iters
+		return q[0]
 	else:
 		#error occured!
-		return board, iters
+		return board
 
 
 def valid (board):
@@ -180,7 +192,7 @@ def valid (board):
 				for n in range(1, 10):
 					if board[i][j][n] != 0:
 						anyPossible = True
-				if (not anyPossible):
+				if not anyPossible:
 					return False
 	return True
 
@@ -229,7 +241,6 @@ def solution (board):
 		for j in range(9):
 			if board[i][j][0] == 0:
 				return False
-		raise WTF
 	return True
 	
 #finds squares with only one possible solution and makes that the answer
