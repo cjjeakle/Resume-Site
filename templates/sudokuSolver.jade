@@ -1,23 +1,55 @@
 extends template
 
+block append scripts
+	script(src="js/sudoku.js", type='text/javascript')
+		
+		
+
+
 block append content
 	#content
-		div
-			br
+		table.table
+		form(action = url, method=post)
+			//the sudoku board input
 			i = 0
-			each row in userInput	
+			each row in board
+				i = i + 1	
+				j = 0
+				each col in row
+					input(type = "text", name = col, size = 1, [validators.length(max = 1)])
+					j = j + 1
+					if (j % 3 == 0)
+						|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				br
+				if (i % 3 == 0)
+					br
+			input(type="submit", text = "SOLVE!")
+		div(float:left;)
+			//the completed output
+			if output
+				br
+			i = 0
+			each row in output	
 				i = i + 1	
 				j = 0
 				each col in row	
 					j = j + 1
-					=col
+					if (i*9+j < 20)	
+						=col
+						&nbsp;
+					else
+						=col
 					if (j % 9 != 0)
-						&nbsp;&nbsp;&nbsp;
+						|&nbsp;&nbsp;&nbsp;
 					if (j % 3 == 0)
-						|&nbsp;
-						=tempData
+						|&nbsp;&nbsp;&nbsp;
 				br
 				if (i % 3 == 0)
 					br
-						
-								
+		
+		
+		
+		
+		
+				
+

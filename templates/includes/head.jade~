@@ -7,5 +7,6 @@ head
 	// js
 	//script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js", type='text/javascript')
 	script(src="js/main.js", type='text/javascript')
+	script(src="js/sudoku.js", type='text/javascript')
 	
 	block scripts

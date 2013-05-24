@@ -2,8 +2,8 @@ import os
 import pyjade
 import collections
 #import sudokuSolver
-from flask import Flask,render_template,send_from_directory
-#from flask.ext.wtf import Form, TextField, TextAreaField, TextArea
+from flask import Flask, render_template, send_from_directory, request
+from flask.ext.wtf import Form, TextField, TextAreaField, TextArea
 
 app = Flask(__name__)
 # use the jade template engine
@@ -43,13 +43,46 @@ def myClasses():
 
 @app.route('/sudokuSolver')
 def sudokuSolver():
+	sudokuBoard = SudokuBoard
+	board = []
+	for i in range(9):
+		temp = []
+		for j in range(9):
+			temp.append(str(i*9+j))
+		board.append(temp)
 
-	#userInput = sudokuSolver(userInput)
 	obj = {
-		#"userInput": userInput
+		"url": "/solveSudoku",
+		"post": "post",
+		"board": board,
+		"sudokuBoard":sudokuBoard
 	};
 	return render_template('sudokuSolver.jade', **obj)
+
+class SudokuBoard(Form):
+
+	a0 = temp.append(TextField(str(0), name = str(0), size = 1))
+	a1 = temp.append(TextField(str(1), name = str(1), size = 1))
+
+@app.route('/solveSudoku',  methods=['GET', 'POST'])
+def solveSudoku():
+	userInput = sudokuBoard(csrf_enabled = False)
+	if request.method == 'POST':
+		board = []
+		for i in range(9):
+			temp = []
+			for j in range(9):
+				temp.append(int(userInput.data[i*9+j]))
+				break
+			board.append(temp)
 	
+	output = sudokuSolver(board)
+	
+	obj = {
+		"output": board,
+	};
+	return render_template('sudokuSolver.jade', **obj)
+
 # this guy handles static files
 @app.route('/<path:filename>')
 def send_pic(filename):
@@ -70,9 +103,12 @@ def sudokuSolver (userInput):
 		for j in range(9):
 			board[i][j][0] = 0
 			
+	givens = 0
+	
 	for i in range(9):
 		for j in range(9):
 			if (userInput[i][j] > 0):
+				givens += 1
 				board[i][j][0] = userInput[i][j]
 				clearSquareConflicts(board, i, j, userInput[i][j])
 				
@@ -80,12 +116,14 @@ def sudokuSolver (userInput):
 		for j in range(9):
 			if (board[i][j][0] >= 1):
 				clearBoardConflicts(board, i, j, board[i][j][0])
-	
-	#solve the sudoku
-	for i in range(10):
-		board = solveSingletons(board)
-		board = findLoneSolutions(board)
-	board = branchNbound(board)
+	if givens >= 12:
+		#solve the sudoku
+		for i in range(10):
+			board = solveSingletons(board)
+			board = findLoneSolutions(board)
+		board = branchNbound(board)
+	else:
+		userInput = ["Please provide more givens (at least 12)"]
 	
 	if board:
 		for i in range(9):
@@ -120,7 +158,7 @@ def branchNbound (board):
 		return q[0]
 	else:
 		#error occured!
-		return board
+		return ["The solver failed, something went wrong!"]
 
 
 def valid (board):
