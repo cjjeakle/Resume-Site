@@ -9,6 +9,12 @@ app = Flask(__name__)
 # use the jade template engine
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
+class SudokuForm (Form):
+	form = [Form]
+	for i in range(9):
+		for j in range(9):
+			form.append(TextField(str(i*9+j)))
+
 @app.route('/')
 def index():
 	obj = {
@@ -43,45 +49,44 @@ def myClasses():
 
 @app.route('/sudokuSolver')
 def sudokuSolver():
-	sudokuBoard = SudokuBoard
+	form = SudokuForm(csrf_enabled=False, Form)
+	obj = {
+		"url": "/solveSudoku",
+		"post": "post",
+		"board": form,
+	};
+	return render_template('sudokuSolver.jade', **obj)
+
+@app.route('/solveSudoku',  methods=['POST'])
+def solveSudoku():
 	board = []
 	for i in range(9):
 		temp = []
 		for j in range(9):
-			temp.append(str(i*9+j))
+			if not request.form.get(str(i*9+j), None) == None:
+				temp.append(str(request.form.get(str(i*9+j), None)))
+			else:
+				temp.append("0")
 		board.append(temp)
-
-	obj = {
-		"url": "/solveSudoku",
-		"post": "post",
-		"board": board,
-		"sudokuBoard":sudokuBoard
-	};
-	return render_template('sudokuSolver.jade', **obj)
-
-class SudokuBoard(Form):
-
-	a0 = temp.append(TextField(str(0), name = str(0), size = 1))
-	a1 = temp.append(TextField(str(0), name = str(0), size = 1))
-
-@app.route('/solveSudoku',  methods=['GET', 'POST'])
-def solveSudoku():
-	userInput = sudokuBoard(csrf_enabled = False)
-	if request.method == 'POST':
-		board = []
-		for i in range(9):
-			temp = []
-			for j in range(9):
-				temp.append(int(userInput.data[i*9+j]))
-				break
-			board.append(temp)
+	info = request.form
+	board[0][0] = request
+#	for i in range(9):
+#		temp = []
+#		for j in range(9):
+#			temp.append(request.form["test"])
+#		output.append(temp)
 	
-	output = sudokuSolver(board)
+	
+	#output = sudokuSolver(board)
 	
 	obj = {
 		"output": board,
+		"board":board
 	};
-	return render_template('sudokuSolver.jade', **obj)
+	if info == None:
+		return render_template('sudokuSolver.jade', **obj)
+	else:
+		return render_template('sudokuSolver.jade')
 
 # this guy handles static files
 @app.route('/<path:filename>')
