@@ -1,7 +1,7 @@
 extends template
 
-block append scripts
-	script(src="js/sudoku.js", type='text/javascript')
+block append moreScripts
+	script(src='js/sudoku.js', type='text/javascript')
 		
 		
 
@@ -11,22 +11,19 @@ block append content
 		table.table
 		form(action = url, method=post)
 			//the sudoku board input
-			br
-			input (type = 'text', name = 'test', id = "test",  size = 1)
-			br
 			i = 0
 			for row in board
 				i = i + 1
 				j = 0
 				for col in row
-					input(type = "text", name = col, size = 1)
+					input(type = 'text', name = 'sq'+col, id = 'sq'+col, size = 1, maxlength = '1')
 					j = j + 1
 					if (j % 3 == 0)
 						|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				br
 				if (i % 3 == 0)
 					br
-			input(type="submit", text = "SOLVE!")
+			input(type='submit', text = 'SOLVE!')
 		div(float:left;)
 			//the completed output
 			if output

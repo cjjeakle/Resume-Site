@@ -1,6 +1,7 @@
 !!! 5
 html(lang="en")
 	include includes/head
+	block moreScripts
 	body
 		include includes/titlebar
 		.container

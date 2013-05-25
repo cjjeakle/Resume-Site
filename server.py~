@@ -3,17 +3,10 @@ import pyjade
 import collections
 #import sudokuSolver
 from flask import Flask, render_template, send_from_directory, request
-from flask.ext.wtf import Form, TextField, TextAreaField, TextArea
 
 app = Flask(__name__)
 # use the jade template engine
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
-
-class SudokuForm (Form):
-	form = [Form]
-	for i in range(9):
-		for j in range(9):
-			form.append(TextField(str(i*9+j)))
 
 @app.route('/')
 def index():
@@ -49,44 +42,44 @@ def myClasses():
 
 @app.route('/sudokuSolver')
 def sudokuSolver():
-	form = SudokuForm(csrf_enabled=False, Form)
+	boardNames = []
+	for i in range(9):
+		temp = []
+		for j in range(9):
+			temp.append(str(i*9+j))
+		boardNames.append(temp)
+				
 	obj = {
 		"url": "/solveSudoku",
 		"post": "post",
-		"board": form,
+		"boardNames": boardNames,
+		"defaults": boardNames,
 	};
 	return render_template('sudokuSolver.jade', **obj)
 
 @app.route('/solveSudoku',  methods=['POST'])
 def solveSudoku():
-	board = []
+	boardNames = []
 	for i in range(9):
 		temp = []
 		for j in range(9):
-			if not request.form.get(str(i*9+j), None) == None:
-				temp.append(str(request.form.get(str(i*9+j), None)))
-			else:
-				temp.append("0")
-		board.append(temp)
-	info = request.form
-	board[0][0] = request
-#	for i in range(9):
-#		temp = []
-#		for j in range(9):
-#			temp.append(request.form["test"])
-#		output.append(temp)
-	
-	
-	#output = sudokuSolver(board)
-	
+			temp.append(str(i*9+j))
+		boardNames.append(temp)
+		
+	board = [[0]*9 for _ in xrange(9)]
+	for i in range(9):
+		for j in range(9):
+			temp = request.form.get('sq'+str(i*9+j), '0')
+			if temp.isdigit():
+				board[i][j] = int(temp)
+	output = sudokuSolver(board)		
 	obj = {
+		"url": "/solveSudoku",
+		"post": "post",
 		"output": board,
-		"board":board
+		"boardNames": boardNames
 	};
-	if info == None:
-		return render_template('sudokuSolver.jade', **obj)
-	else:
-		return render_template('sudokuSolver.jade')
+	return render_template('sudokuSolver.jade', **obj)
 
 # this guy handles static files
 @app.route('/<path:filename>')
@@ -94,7 +87,7 @@ def send_pic(filename):
 	print(filename)
 	return send_from_directory('./public/', filename)
 
-
+app.secret_key = 'secret' 
 
 ################################################################################
 
@@ -128,7 +121,9 @@ def sudokuSolver (userInput):
 			board = findLoneSolutions(board)
 		board = branchNbound(board)
 	else:
-		userInput = ["Please provide more givens (at least 12)"]
+		return [[0]*9 for _ in xrange(9)].append(["Please provide more givens"])
+	if not valid(board):
+		return [[0]*9 for _ in xrange(9)].append(["Please provide a valid board"])
 	
 	if board:
 		for i in range(9):
