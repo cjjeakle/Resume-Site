@@ -8,15 +8,17 @@ block append moreScripts
 
 block append content
 	#content
-		table.table
 		form(action = url, method=post)
 			//the sudoku board input
 			i = 0
-			for row in board
+			for row in boardNames
 				i = i + 1
 				j = 0
 				for col in row
-					input(type = 'text', name = 'sq'+col, id = 'sq'+col, size = 1, maxlength = '1')
+					val = ''
+					if (board[i - 1][j] != 0)
+						val = board[i - 1][j]
+					input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val)
 					j = j + 1
 					if (j % 3 == 0)
 						|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -24,24 +26,8 @@ block append content
 				if (i % 3 == 0)
 					br
 			input(type='submit', text = 'SOLVE!')
-		div(float:left;)
-			//the completed output
-			if output
-				br
-			i = 0
-			each row in output	
-				i = i + 1	
-				j = 0
-				each col in row	
-					j = j + 1
-					=col
-					if (j % 9 != 0)
-						|&nbsp;&nbsp;&nbsp;
-					if (j % 3 == 0)
-						|&nbsp;&nbsp;&nbsp;
-				br
-				if (i % 3 == 0)
-					br
+		br
+		= annotation
 		
 		
 		
