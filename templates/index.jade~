@@ -1,13 +1,9 @@
 extends template
 
 block append content
-#content
-	div
-		|This site was made with the help of the 
-		a(href = "https://github.com/michiganhackers/heroku-py-demo") Michigan Hackers.
-		br
-		|You can see my implementation at
-		a(href = "https://github.com/cjjeakle/Resume-Site") my GitHub
+	#content
+		h3 Welcome!
+		|to the greatest site on the internet
 				
 				
 				

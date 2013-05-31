@@ -1,0 +1,8 @@
+extends template
+
+block append moreScripts
+	script(src='js/sudoku.js', type='text/javascript')
+		
+block append content
+	#content
+		

@@ -18,7 +18,7 @@ def index():
 	};
 	return render_template('index.jade', **obj)
 
-@app.route('/myClasses')
+@app.route('/myclasses')
 def myClasses():
 
 	myClasses = ["EECS 183: Elementary Programming Concepts",
@@ -42,7 +42,7 @@ def myClasses():
 	};
 	return render_template('myClasses.jade', **obj)
 
-@app.route('/sudokuSolver')
+@app.route('/sudokusolver')
 def sudokuSolver():
 	boardNames = []
 	for i in range(9):
@@ -59,7 +59,7 @@ def sudokuSolver():
 		board.append(temp)
 		
 	obj = {
-		"url": "/solveSudoku",
+		"url": "/sudokusolver",
 		"post": "post",
 		"boardNames": boardNames,
 		"board": board,
@@ -67,7 +67,7 @@ def sudokuSolver():
 	};
 	return render_template('sudokuSolver.jade', **obj)
 
-@app.route('/solveSudoku',  methods=['POST'])
+@app.route('/sudokusolver',  methods=['POST'])
 def solveSudoku():
 	boardNames = []
 	for i in range(9):
@@ -86,21 +86,26 @@ def solveSudoku():
 	annotation = "Success!"		
 	try:
 		SudokuSolver.sudokuSolver(board)
-	except SudokuSolver.TooFewInputs:
+	except SudokuSolver.TooFewGivens:
 		annotation = "Please provide more givens"
 	except SudokuSolver.SolverFailed:
 		annotation = ("The solver failed, something went wrong!</br>" +
 					"Please ensure you provided a valid puzzle")
 	
 	obj = {
-		"url": "/solveSudoku",
+		"url": "/sudokusolver",
 		"post": "post",
 		"boardNames": boardNames,
 		"board": board,
 		"annotation": annotation,
-		
 	};
 	return render_template('sudokuSolver.jade', **obj)
+
+@app.route('/about')
+def solveSudoku():
+	obj = {
+	};
+	return render_template('about.jade', **obj)
 
 # this guy handles static files
 @app.route('/<path:filename>')

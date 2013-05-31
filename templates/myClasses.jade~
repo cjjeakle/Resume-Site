@@ -1,26 +1,21 @@
-!!! 5
-html(lang="en")
-	include /head
-	body
-		include /titlebar
-		.container
-			include /navbar
-			#content
-				div
-					h2 My Classes
-					h3 In the Fall I will Take:
-					each class in myEnrollment
-						= class
-						br
-					
-					h3 I Plan to Take:
-					each class in myFutureClasses
-						= class
-						br
-						
-					h3 I Have Completed:
-					each class in myClasses
-						= class
-						br
-	include /footer
+extends template
+
+block append content
+	#content
+		div
+			h2 My Classes
+			h3 In the Fall I will Take:
+			each class in myEnrollment
+				= class
+				br
+			
+			h3 I Plan to Take:
+			each class in myFutureClasses
+				= class
+				br
+				
+			h3 I Have Completed:
+			each class in myClasses
+				= class
+				br
 

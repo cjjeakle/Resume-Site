@@ -1,7 +1,7 @@
 import collections
 import copy
 
-class TooFewInputs ():
+class TooFewInputs():
 	"Please Provide More Givens"
 	
 class SolverFailed():
@@ -29,7 +29,7 @@ def sudokuSolver (userInput):
 			if board[i][j][0] != 0:
 				clearBoardConflicts(board, i, j, board[i][j][0])
 	
-	if givens >= 12:
+	if givens >= 17:
 		for i in range(10):
 			board = solveSingletons(board)
 			board = findLoneSolutions(board)
