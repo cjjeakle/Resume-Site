@@ -15,7 +15,7 @@ block append content
 			a(href = "https://github.com/michiganhackers/heroku-py-demo") Michigan Hackers.
 			br
 			|You can see the implementation on
-			a(href = "https://github.com/cjjeakle/Resume-Site") my GitHub
+			a(href = "https://github.com/cjjeakle/Resume-Site") my GitHub.
 			br
 			br
-			|Copyright Chris Jeakle 2013
+			|&copy 2013 Chris Jeakle
