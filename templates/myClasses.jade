@@ -4,18 +4,12 @@ block append content
 	#content
 		div
 			h3 My Classes
-			h4 In the Fall I will Take:
-			each class in myEnrollment
-				= class
-				br
-			
-			h4 I Plan to Take:
-			each class in myFutureClasses
-				= class
-				br
-				
-			h4 I Have Completed:
-			each class in myClasses
-				= class
-				br
+			i = 0
+			each title in titles
+				h4
+					=title
+				each class in classes[i]
+					!=class
+					br
+				i = i + 1
 

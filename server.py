@@ -21,24 +21,34 @@ def index():
 @app.route('/myclasses')
 def myClasses():
 
-	myClasses = ["EECS 183: Elementary Programming Concepts",
+	titles = ["This summer I am working on:",
+				"In the Fall I will Take:",
+				"I Plan to Take:",
+				"I Have Completed:"]
+
+	# Used four "&nbsp;" in place of tab
+	classes = [["EECS 499: Directed Study",
+				"&nbsp;&nbsp;&nbsp;&nbsp;--Continuing work on "
+				"<a href=\"https://github.com/cjjeakle/Maze-and-Blue\" target = \"_Blank\">a video game</a> "
+				"to assist children with Autism Spectrum Disorder (ASD)"],
+				
+				["EECS 381: Object-Oriented and Advanced Programming",
+				"EECS 484: Database Management Systems"],
+				
+				["EECS 443: Senior Thesis Course (Honors)",
+				"EECS 482: Introduction to Operating Systems"],
+					
+				["EECS 183: Elementary Programming Concepts",
 				"EECS 203: Discrete Mathematics",
 				"EECS 280: Programming & Data Structures",
 				"EECS 281: Data Structures & Algorithms",
 				"EECS 370: Computer Architecture",
 				"EECS 376: Foundations of Computer Science",
-				"EECS 481: Software Engineering"]
-	
-	myEnrollment = ["EECS 381: Object-Oriented and Advanced Programming",
-					"EECS 484: Database Management Systems"]
-	
-	myFutureClasses = ["EECS 443: Senior Thesis Course (Honors)",
-					"EECS 482: Introduction to Operating Systems"]
-	
+				"EECS 481: Software Engineering"]]
+
 	obj = {
-		"myClasses": myClasses,
-		"myEnrollment": myEnrollment,
-		"myFutureClasses": myFutureClasses
+		"titles": titles,
+		"classes": classes,
 	};
 	return render_template('myClasses.jade', **obj)
 
@@ -107,7 +117,7 @@ def about():
 	};
 	return render_template('about.jade', **obj)
 
-# this guy handles static files
+# Handles static files
 @app.route('/<path:filename>')
 def send_pic(filename):
 	print(filename)
