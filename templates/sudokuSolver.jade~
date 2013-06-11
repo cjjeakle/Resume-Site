@@ -1,33 +1,37 @@
 extends template
 
 block append moreScripts
-	script(src='js/sudoku.js', type='text/javascript')
-		
+	<link rel="stylesheet" href="css/button.css">
 block append content
 	#content
 		h3 Solve Sudokus
 		|Note that you can get the previous board state by using the back button
-		form(action = url, method=post)
-			br
-			//create the sudoku board for i/o
-			i = 0
-			for row in boardNames
-				i = i + 1
-				j = 0
-				for col in row
-					val = ''
-					if (board[i - 1][j] != 0)
-						val = board[i - 1][j]
-					input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val)
-					j = j + 1
-					if (j % 3 == 0 and j < 9)
-						|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		br
+		div.sudoku
+			form(action = url, method=post)
 				br
-				if (i % 3 == 0 and i < 9)
+				//create the sudoku board for i/o
+				i = 0
+				for row in boardNames
+					i = i + 1
+					j = 0
+					for col in row
+						val = ''
+						if (board[i - 1][j] != 0)
+							val = board[i - 1][j]
+						input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val)
+						j = j + 1
+						if (j % 3 == 0 and j < 9)
+							|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					br
-			input(type='submit', text = 'SOLVE!', label = 'Solve!') Solve
-		a(href = '/sudokusolver')
-			button Clear
+					if (i % 3 == 0 and i < 9)
+						br
+				input(type='submit').base-button.button
+					|Solve
+				div.filler-height.right
+					div.filler-width.right
+						a(href = '/sudokusolver').base-button.link-button
+							|Clear
 		br
 		!=annotation
 		br

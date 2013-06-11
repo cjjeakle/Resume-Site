@@ -1,0 +1,37 @@
+.sudoku {
+	display: inline-block;
+}
+.filler-width {
+	padding-right: 2px;
+}
+.filler-height {
+	padding-top: 2px;
+}
+.right {
+	float: right;
+}
+#content .base-button {
+	font-size: 1.3em;
+	cursor: pointer;
+	overflow: hidden;
+	background: #CCC;
+	color: #000;
+	border-radius: 2px;
+}
+#content .base-button:hover {
+	border-color: rgba( 0, 0, 0, 0.85 );
+	background: #777;
+}
+#content .button {
+	position: relative;
+	border: 1em;
+	padding: 0.25em .4em;
+	border: 1px solid transparent;
+}
+#content .link-button {
+	position: relative;
+	border: 1em;
+	padding: 0.13em .40em;
+	border: 1px solid transparent;
+}
+
