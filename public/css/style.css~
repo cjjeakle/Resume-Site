@@ -77,16 +77,22 @@ a {
 	outline:none;
 }
 
-#content a:hover {
+a:hover {
 	color:#000;
 }
 
 #content {
 	padding-left:2%;
 	margin-left:20%;
-	width:75%;
+	width:50%;
 	overflow:hidden;
 	font-size:85%;
+}
+#content ul {
+	list-style: circle outside url(uploads/images/bgimages/scales.gif);
+	padding-left: 2.2em;
+	margin-left: 2.2em;
+	line-height: 1.3em;
 }
 
 #content a {
