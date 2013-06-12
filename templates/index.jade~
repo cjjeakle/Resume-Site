@@ -4,24 +4,26 @@ block append content
 	#content
 		h3 Welcome to my Website!
 		h4 Who am I?
-		|I am Chris Jeakle.
-		br
-		|As the header to my site proclaims: I am a Computer Science Student at the University 
-		|of Michigan who is working at an internship with Thomson Reuters this summer
+		li
+			|I am Chris Jeakle.
+		li
+			|As the header to my site proclaims: I am a Computer Science Student at the University 
+			|of Michigan and I am interning with Thomson Reuters this summer
 		h4 What am I up to this summer?
 		li 
-			|Pursuing a directed study where I work on a
+			|Working on a
 			a(href = 'https://github.com/cjjeakle/Maze-and-Blue', target = '_Blank') video game called "Maze and Blue", 
-			|which is intended to assist children with Autism Spectrum Disorder (ASD)
+			|which is designed to assist children who have Autism Spectrum Disorder (ASD) 
+			| with improving coordination and communication skills
 		li
 			|Working on some personal projects just for fun (such as this site!)
 		li
 			|Working full time as a programming intern at Thomson Reuters
-		h4 Want to hire me full time when I graduate (or you want to know more about me)?
+		h4 Want to hire me when I graduate (or you want to know more about me)?
 		li
-			|Thats awesome! I want to work full time!
-			br
-			|&nbsp;&nbsp;&nbsp;Head over to the 
+			|Thats awesome! I want to work someplace when I graduate!
+		Li
+			|Head over to the 
 			a(href = '/about') about page 
 			|and send me an email
 				
