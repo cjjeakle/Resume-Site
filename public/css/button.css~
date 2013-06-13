@@ -13,8 +13,8 @@
 	border-collapse:collapse;
 }
 .cell{
-	width: 1.1em;
-	height: 1.1em;
+	width: 1.3em;
+	height: 1.3em;
 	border-left: 1px solid;
 	border-top: 1px solid;
 	padding: 0.3em;
@@ -25,10 +25,8 @@
 .boldL {
 	border-left: 2px solid;
 }
-.plainT {
-}
 .plainB {
-	border-bottom: 2px solid;
+	border-bottom: 1px solid;
 }
 .plainR {
 	border-right: 1px solid;

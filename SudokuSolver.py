@@ -29,7 +29,7 @@ def sudokuSolver (userInput):
 			if board[i][j][0] != 0:
 				clearBoardConflicts(board, i, j, board[i][j][0])
 	
-	if givens >= 17:
+	if givens >= 15:
 		for i in range(10):
 			board = solveSingletons(board)
 			board = findLoneSolutions(board)
@@ -62,6 +62,8 @@ def branchNbound (board):
 							temp = clearSquareConflicts(temp, i, j, n)
 							temp = clearBoardConflicts(temp, i, j, n)
 							
+							#This is equilivant to running the guess
+							#through a solving loop of size 3
 							temp = solveSingletons(temp)
 							temp = findLoneSolutions(temp)
 							temp = solveSingletons(temp)

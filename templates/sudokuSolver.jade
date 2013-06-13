@@ -1,15 +1,22 @@
 extends template
 
 block append moreScripts
-	<link rel="stylesheet" href="css/button.css">
+	<link rel="stylesheet" href="css/sudoku.css">
 block append content
 	#content
 		h3 Solve Sudokus
 		|Note that you can get the previous board state by using the back button
 		br
+		div( style = 'font-size: 90%; line-height: 125%;')
+			|Be careful, currently the branch and bound alogrithm
+			| doesn't play nice with sudokus that have multiple solutions
+			br(style = 'line-height: 150%;')
+			|Sudokus of any difficulty from sites like
+			a(href = 'http://www.websudoku.com/', target = '_blank') websudoku.com 
+			| should be fine, though
+		br
 		div.sudoku
 			form(action = url, method=post, id = 'sudokuBoard')
-				br
 				//create the sudoku board for i/o
 				i = 0
 				table(cellspacing = '0', cellpadding = '0').table
@@ -43,7 +50,7 @@ block append content
 		br
 		!=annotation
 		br
-		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/sudokuSolver.py')
+		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/SudokuSolver.py/', target = '_blank')
 			|Check out the algorithm on my github
 		
 		
