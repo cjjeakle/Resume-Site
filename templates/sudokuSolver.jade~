@@ -23,9 +23,13 @@ block append content
 										val = board[i][j]
 									class = 'cell'
 									if (i % 3 == 0 and i > 0)
-										class = class + ' dividerT'
+										class = class + ' boldT'
 									if (j % 3 == 0 and j > 0)
-										class = class + ' dividerL'
+										class = class + ' boldL'
+									if (i == 8)
+										class = class + ' plainB'
+									if (j == 8)
+										class = class + ' plainR'
 									input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val, class = class).board
 								j = j + 1
 						i = i + 1

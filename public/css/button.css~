@@ -2,33 +2,36 @@
 	display: inline-block;
 }
 .board {
+	float:left;
+	border: 0px;
+	width: 2em;
+	height: 2em;
 	text-align:center;
-	width: 1em;
-	height: 1em;
-	border-top: 1px solid;
-	border-bottom:1px solid;
-	border-left:1px solid;
-	border-right: 1px solid;
-	padding: 0.3em;
 }
 .table {
+	text-align:center;
+	border-collapse:collapse;
 }
 .cell{
-	float:left;
-	margin: 0px;
-	width: 1em;
-	height: 1em; 
-	border-bottom:1px solid;
-	border-left:1px solid;
+	width: 1.1em;
+	height: 1.1em;
+	border-left: 1px solid;
+	border-top: 1px solid;
 	padding: 0.3em;
 }
-.dividerT {
-	border-top:2px solid;
-	border-left:1px solid;
+.boldT {
+	border-top: 2px solid;
 }
-.dividerL {
-	border-bottom:1px solid;
-	border-left:2px solid;
+.boldL {
+	border-left: 2px solid;
+}
+.plainT {
+}
+.plainB {
+	border-bottom: 2px solid;
+}
+.plainR {
+	border-right: 1px solid;
 }
 #content .button {
 	font-size: 1.3em;
