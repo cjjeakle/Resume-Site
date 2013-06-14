@@ -1,4 +1,4 @@
-## cjjeake's Resume Site
+## cjjeakle's Resume Site
 
 Build with the help of the Michigan Hackers.
 See their awesome tutorial for getting started making websites at: 
