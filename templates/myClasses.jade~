@@ -3,13 +3,13 @@ extends template
 block append content
 	#content
 		div
-			h3 My Classes
+			h My Classes
 			i = 0
 			each title in titles
-				h4
+				h5
 					=title
 				each class in classes[i]
-					=class
+					!=class
 					br
 				i = i + 1
 

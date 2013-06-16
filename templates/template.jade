@@ -4,12 +4,23 @@ html(lang="en")
 		include includes/head
 		block moreScripts
 	body
-		include includes/titlebar
-		.container
-			include includes/navbar
-			block content
-			#rightEdge
-				block rightEdge
-				
-				
-	include includes/footer
+		|&nbsp;
+		br
+		div(class = 'row')
+			include includes/titlebar
+		div(class = 'row')
+			.container
+				div(class = 'large-2 columns')
+					include includes/navbar
+				div(class = 'large-7 columns')
+					block content
+				#rightEdge
+					block rightEdge	
+		div(class = 'row')
+			br
+			br
+			br
+			br
+			br
+			br
+			|&nbsp;

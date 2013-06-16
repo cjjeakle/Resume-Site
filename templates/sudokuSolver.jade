@@ -8,12 +8,12 @@ block append content
 		|Note that you can get the previous board state by using the back button
 		br
 		div( style = 'font-size: 90%; line-height: 125%;')
-			|Be careful, currently the branch and bound alogrithm
-			| doesn't play nice with sudokus that have multiple solutions
-			br(style = 'line-height: 150%;')
-			|Sudokus of any difficulty from sites like
-			a(href = 'http://www.websudoku.com/', target = '_blank') websudoku.com 
-			| should be fine, though
+			p
+				|Be careful, currently the branch and bound alogrithm
+				| doesn't play nice with sudokus that have multiple solutions. 
+				| Sudokus of any difficulty from sites like
+				a(href = 'http://www.websudoku.com/', target = '_blank') websudoku.com 
+				| should be fine, though.
 		br
 		div.sudoku
 			form(action = url, method=post, id = 'sudokuBoard')
@@ -37,7 +37,7 @@ block append content
 										class = class + ' plainB'
 									if (j == 8)
 										class = class + ' plainR'
-									input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val, class = class).board
+									input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val, class = class, autocomplete = 'off').board
 								j = j + 1
 						i = i + 1
 			//to make the buttons look similar, I had to make both into stylized hyperlinks

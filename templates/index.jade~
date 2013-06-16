@@ -3,16 +3,16 @@ extends template
 block append content
 	#content
 		h3 Welcome to my Website!
-		h4 Who am I?
+		h5 Who am I?
 		li
-			|I am Chris Jeakle.
+			|I am Chris Jeakle
 		li
 			|As the header to my site proclaims: I am a Computer Science Student at the University 
 			|of Michigan and I am interning with Thomson Reuters for the summer
 		li
 			|I began this site in my spare time while my housemates and I were between internet providers.
 			|Now I update it from time to time to showcase things I am up to and stuff I am working on.
-		h4 What am I up to this summer?
+		h5 What am I up to this summer?
 		li 
 			|Working on a
 			a(href = 'https://github.com/cjjeakle/Maze-and-Blue', target = '_Blank') video game called "Maze and Blue", 
@@ -22,7 +22,7 @@ block append content
 			|Working on some personal projects just for fun (such as this site!)
 		li
 			|Working full time as a programming intern at Thomson Reuters
-		h4 How can you find out more or see my resume?
+		h5 How can you find out more or see my resume?
 		Li
 			|Head over to the 
 			a(href = '/about') about page 

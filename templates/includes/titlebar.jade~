@@ -1,9 +1,15 @@
-.title
-	#titleImg
-		img(src="/img/me.jpg")
-	#titleText
-		h1.title Chris Jeakle
-		| A Computer Science Student at the University of Michigan
-		br
-		|  and Intern at Thomson Reuters
-.filler
+div(class = 'large-2 column')
+	|&nbsp;
+div(class = 'large-7 column')
+	.title
+		#titleImg
+			img(src="/img/me.jpg")
+		#titleText
+			|&nbsp;
+			h2 Chris Jeakle
+			#titleInfo
+				| A Computer Science Student at the University of Michigan
+				br
+				|  and Intern at Thomson Reuters
+	.filler
+div(class = 'large-3 column')
