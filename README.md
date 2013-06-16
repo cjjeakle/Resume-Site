@@ -6,11 +6,11 @@ https://github.com/michiganhackers/heroku-py-demo.git
 
 ----
 ## To work with the foundation framework in this project:
-'[sudo] gem install zurb-foundation'
-'[sudo] gem install compass'
-'gem install sass'
-'cd path/to/resume-site/public/my-site.css'
-Do your stuff!
+- `[sudo] gem install zurb-foundation`
+- `[sudo] gem install compass`
+- `gem install sass`
+- `cd path/to/resume-site/public/my-site.css`
+- Do your stuff!
 
 
 ## Below are reminders for myself and others on how to build and deploy a flask app:
