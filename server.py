@@ -96,6 +96,9 @@ def solveSudoku():
 	annotation = "Success!"		
 	try:
 		SudokuSolver.sudokuSolver(board)
+	except SudokuSolver.Timeout:
+		annotation = ("The algorithm timed out, </br>" + 
+					" Please ensure your puzzle is valid and has only one solution")
 	except SudokuSolver.TooFewGivens:
 		annotation = "Please provide more givens"
 	except SudokuSolver.SolverFailed:

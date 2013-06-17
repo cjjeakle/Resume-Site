@@ -1,5 +1,9 @@
 import collections
 import copy
+import time
+
+class Timeout():
+	"The Algorithm Timed Out, Ensure Your Puzzle Is Valid and That It Has One Solution"
 
 class TooFewGivens():
 	"Please Provide More Givens"
@@ -9,7 +13,7 @@ class SolverFailed():
 
 #this library takes and returns a 9x9 list of ints
 #provide givens in their given location, and use 0's for unknown squares
-#raises TooFewInputs or SolverFailed in event of errors
+#raises Timeout, TooFewInputs or SolverFailed in event of errors
 def sudokuSolver (userInput):
 	#generate a board of unique nested lists rather than shallow copies of lists
 	board = [[[2]*10 for _ in xrange(9)] for _ in xrange(9)]
@@ -49,7 +53,7 @@ def sudokuSolver (userInput):
 def branchNbound (board):
 	q = collections.deque() #use a deque as a queue
 	q.append(board)
-	data = 0
+	start = time.time()
 	while q and not solution(q[0]):
 		#traverse rows and cols
 		for i in range(9):
@@ -72,9 +76,13 @@ def branchNbound (board):
 							temp = findLoneSolutions(temp)
 						
 							if valid(temp):
-								q.append(temp)	
-								data += 1	
-					q.popleft()	
+								q.append(temp)
+							
+							#exit the solver if it has been more than 15 sec
+							if (time.time() - start) > 15:
+								print iter
+								raise Timeout
+					q.popleft()
 	if q and valid(q[0]) and solution(q[0]):
 		return q[0], True
 	else:
