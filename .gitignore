@@ -15,6 +15,7 @@ venv/*
 *.exe
 *.o
 *.so
+*.pyc
 
 # Packages #
 ############
