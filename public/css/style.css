@@ -16,7 +16,7 @@ body {
 	float: left;
 	text-align: left;
 	width: auto;
-	margin-top: 0px;
+	margin-top: 10px;
 	margin-bottom: 0px;
 }
 
@@ -45,7 +45,7 @@ body {
 	border-right:1px solid #666767;
 	padding-right: 1em;
 	float:right;
-	text-align: center;
+	text-align: right;
 }
 
 #nav ul {

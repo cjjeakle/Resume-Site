@@ -3,9 +3,6 @@ body {
   line-height: 1.6em;
 }
 
-.title {
-}
-
 #titleImg {
 	margin-right: 15px;
 	float: left; 
@@ -48,7 +45,7 @@ body {
 	border-right:1px solid #666767;
 	padding-right: 1em;
 	float:right;
-	text-align: center;
+	text-align: right;
 }
 
 #nav ul {

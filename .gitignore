@@ -1,7 +1,7 @@
 # Project Directories to Ignore #
 #################################
-build/
-venv/
+build/*
+venv/*
 
 # Temp Files #
 ##############
