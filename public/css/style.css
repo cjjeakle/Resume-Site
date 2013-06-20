@@ -44,7 +44,8 @@ body {
 }
 
 .small-12 #nav {
-	padding-right: 1em;
+	border-left:1px solid #666767;
+	padding-left: 1em;
 	text-align: left;
 }
 
