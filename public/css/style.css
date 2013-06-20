@@ -13,11 +13,13 @@ body {
 }
 
 #titleText {
-	float: left;
+	display: inline-block;
+	float: bottom;
 	text-align: left;
+	height:auto;
 	width: auto;
-	margin-top: 10px;
-	margin-bottom: 0px;
+	margin-top: 1em;
+	margin-bottom: 0em;
 }
 
 #titleText h2{

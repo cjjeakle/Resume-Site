@@ -13,11 +13,11 @@
 	border-collapse:collapse;
 }
 .cell{
-	width: 2.5em;
-	height: 2.5em;
+	width: 2em;
+	height: 2em;
 	border-left: 1px solid;
 	border-top: 1px solid;
-	padding: 0.3em;
+	padding: 0.1em;
 }
 .boldT {
 	border-top: 2px solid;
@@ -31,7 +31,7 @@
 .plainR {
 	border-right: 1px solid;
 }
-#content .button {
+#content .btn {
 	font-size: 1.3em;
 	cursor: pointer;
 	overflow: hidden;
@@ -41,7 +41,7 @@
 	padding: 0.10em .25em;
 	border: 1px solid transparent;
 }
-#content .button:hover {
+#content .btn:hover {
 	border-color: rgba( 0, 0, 0, 0.85 );
 	background: #777;
 }

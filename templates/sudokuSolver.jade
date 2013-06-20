@@ -24,34 +24,36 @@ block append content
 						j = 0
 						tr
 							for col in row
-								td
-									val = ''
-									if (board[i][j] != 0)
-										val = board[i][j]
-									class = 'cell'
-									if (i % 3 == 0 and i > 0)
-										class = class + ' boldT'
-									if (j % 3 == 0 and j > 0)
-										class = class + ' boldL'
-									if (i == 8)
-										class = class + ' plainB'
-									if (j == 8)
-										class = class + ' plainR'
-									input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val, class = class, autocomplete = 'off').board
+								val = ''
+								if (board[i][j] != 0)
+									val = board[i][j]
+								class = 'cell'
+								if (i % 3 == 0 and i > 0)
+									class = class + ' boldT'
+								if (j % 3 == 0 and j > 0)
+									class = class + ' boldL'
+								if (i == 8)
+									class = class + ' plainB'
+								if (j == 8)
+									class = class + ' plainR'
+								td(class = class)
+									input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val, autocomplete = 'off').board
 								j = j + 1
 						i = i + 1
 			//to make the buttons look similar, I had to make both into stylized hyperlinks
 			div.center
-				a(href='javascript:document.getElementById(\'sudokuBoard\').submit()').button.center
+				a(href='javascript:document.getElementById(\'sudokuBoard\').submit()').btn.center
 						|&nbsp;Solve
 				|&nbsp;&nbsp;&nbsp;&nbsp;
-				a(href = '/sudokusolver').button.center
+				a(href = '/sudokusolver').btn.center
 						|&nbsp;Clear&nbsp;
 		br
 		!=annotation
 		br
 		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/SudokuSolver.py/', target = '_blank')
 			|Check out the algorithm on my github
+block append rightEdge
+	|&nbsp;
 		
 		
 		
