@@ -1,42 +1,45 @@
-## cjjeakle's Resume Site
+## My Personal Website
 
 Build with the help of the Michigan Hackers.
 See their awesome tutorial for getting started making websites at: 
 https://github.com/michiganhackers/heroku-py-demo.git
 
 ----
-## To work with the foundation framework in this project:
-- `[sudo] gem install zurb-foundation`
-- `[sudo] gem install compass`
-- `gem install sass`
-- `cd path/to/resume-site/public/my-site.css`
-- Do your stuff!
+## Getting Started:
 
-
-## Below are reminders for myself and others on how to build and deploy a flask app:
-
-### Locally Running
+#### Locally Running
+- Install python 2.7.x and python virtual envrironment
 - Run `virtualenv venv --distribute` to start up a virtual environment. 
 - Run: `source venv/bin/activate` to start up the virtualenv.
-- Install Flask: `pip install -r requirements.txt`.
+- Install dependancies: `pip install -r requirements.txt`.
 - Type `python server.py` to run the app.
 - Navigate to `http://localhost:3000/`
 
-### Deploy
+#### Next Time You Develop
+- `source venv/bin/activate`
+- `python server.py` to run locally.
+- `git commit -am "commit message"`
+- `git push heroku master` Update Heroku, no need to scale.
+- `heroku open`
 
+#### Helpful Documentation
+- Flask: http://flask.pocoo.org/docs/quickstart/#
+- Jade: https://github.com/visionmedia/jade
+- Zurb's Foundation Framework: http://foundation.zurb.com/docs/
+
+#### To work with the foundation framework in this project:
+- `[sudo] gem install zurb-foundation`
+- `[sudo] gem install compass`
+- `[sudo] gem install sass`
+- `cd path/to/resume-site/public/my-site.css`
+- `compass watch` (this watches for changes in the .scss files and updates the css)
+- Do your stuff!
+
+## Deploying the app to Heroku:
+
+#### Deploy
 1. `heroku login`
-2. `heroku create [yourappname]` Make up a great app name.
-3. `git push heroku master` (If you dont have an ssh key on Heroku see below.)
+2. `heroku create`
+3. `git push heroku master`
 
-##### Heroku will install dependences and launch your app here. Magic!
 
-- `heroku ps:scale web=1` This gives your app one `web worker`.
-- `heroku open` This will go to yourappname.herokuapp.com
-
-## Next Time You Develop
-
-`source venv/bin/activate`
-`python server.py` to run locally.
-`git commit -am "commit message"`
-`git push heroku master` Update Heroku, no need to scale.
-`heroku open`
