@@ -7,7 +7,7 @@ https://github.com/michiganhackers/heroku-py-demo.git
 ----
 ## Getting Started:
 
-#### Locally Running
+#### Locally Running for the First Time
 - Install python 2.7.x and python virtual envrironment
 - Run `virtualenv venv --distribute` to start up a virtual environment. 
 - Run: `source venv/bin/activate` to start up the virtualenv.
