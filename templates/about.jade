@@ -1,7 +1,7 @@
 extends template
 		
 block append content
-	#content
+	#content(style = "width:100%")
 		div
 			h3 About
 			h5 Contact:
@@ -10,13 +10,17 @@ block append content
 			br
 			br
 			h5 More Info:
-			|This site was made with the help of the 
-			a(href = "https://github.com/michiganhackers/heroku-py-demo", target = '_blank') Michigan Hackers.
-			br
-			|You can see the implementation on
-			a(href = "https://github.com/cjjeakle/Resume-Site", target = '_blank') my GitHub.
-			br
+			li
+				|This site was made with the help of the 
+				a(href = "https://github.com/michiganhackers/heroku-py-demo", target = '_blank') Michigan Hackers.
+			li
+				|To simplify the design process I used Zurb's
+				a(href = 'http://foundation.zurb.com/') Foundation web framework.
+			li
+				|You can see the implementation on
+				a(href = "https://github.com/cjjeakle/Resume-Site", target = '_blank') my GitHub.
 			br
 			|&copy 2013 Chris Jeakle
 block append rightEdge
-	|&nbsp;
+	.row
+		|&nbsp;

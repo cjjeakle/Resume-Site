@@ -1,5 +1,5 @@
-#nav
-	h6 Navigation
+#nav.vertical-nav
+	h4 Navigation
 	ul
 		li
 			a(href = '/') Home

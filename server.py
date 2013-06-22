@@ -28,7 +28,7 @@ def myClasses():
 
 	# Used four "&nbsp;" in place of tab
 	classes = [["EECS 499: Directed Study",
-				"<div style = \"padding-left: 1.0em; display: inline-block;\"><li>Continuing work on "
+				"<div style = \"display: inline-block;\"><li>Continuing work on "
 				"<a href=\"https://github.com/cjjeakle/Maze-and-Blue\" target = \"_Blank\">a video game</a> "
 				"to assist children with Autism Spectrum Disorder (ASD)</li></div>"],
 				
