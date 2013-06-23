@@ -7,11 +7,15 @@ html(lang="en")
 		|&nbsp;
 		br
 		div(class = 'row')
-			include includes/titlebar
+			div(class = 'large-3 column')
+				|&nbsp;
+			div(class = 'large-7 column')
+				include includes/titlebar
+			div(class = 'large-2 column')
 		div(class = 'row')
 			.container
 				.hide-for-small
-					.large-2.columns
+					.large-3.columns
 						include includes/navbar
 				.show-for-small
 					.small-12
@@ -23,7 +27,7 @@ html(lang="en")
 								|&nbsp;
 				.large-7.small-12.columns
 					block content
-				.large-3.small-12.columns
+				.large-2.small-12.columns
 					block rightEdge	
 		div(class = 'row')
 			br

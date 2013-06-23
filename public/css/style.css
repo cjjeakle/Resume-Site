@@ -58,14 +58,14 @@ body {
 	list-style-type:none;
 }
 
-.large-2 #nav {
+.large-3 #nav {
 	border-right:1px solid #666767;
 	padding-right: 1em;
 	float:right;
 	text-align: right;
 }
 
-.large-2 #nav ul {
+.large-3 #nav ul {
 	text-align: right;
 	margin-top: 0px;
 	margin-bottom: 0px;
