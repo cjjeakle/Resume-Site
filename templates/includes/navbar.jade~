@@ -1,17 +1,19 @@
-#nav.vertical-nav
-	h4 Navigation
-	ul
-		li
-			a(href = '/') Home
-		li
-			a(href = '/myclasses') My Classes
-		li
-			a(href = '/sudokusolver') Solve Sudokus!
-		li
-			a(href = '/about') About
-	h6 External Links
-	ul
-		li
-			a(href = "https://github.com/cjjeakle?tab=repositories", target = "_Blank") My GitHub
-		li
-			a(href = "http://www.linkedin.com/pub/christopher-jeakle/42/b14/a28", target = "_Blank") My LinkedIn
+#nav
+	a(href = 'javascript:toggleShow(\'navContent\')')
+		h4.navHeader Navigation &#9660; 
+	div(id = 'navContent', style = 'display:inherit;').navContent
+		ul
+			li
+				a(href = '/') Home
+			li
+				a(href = '/myclasses') My Classes
+			li
+				a(href = '/sudokusolver') Solve Sudokus!
+			li
+				a(href = '/about') About
+		h6 External Links
+		ul
+			li
+				a(href = "https://github.com/cjjeakle?tab=repositories", target = "_Blank") My GitHub
+			li
+				a(href = "http://www.linkedin.com/pub/christopher-jeakle/42/b14/a28", target = "_Blank") My LinkedIn
