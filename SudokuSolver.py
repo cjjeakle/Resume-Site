@@ -3,13 +3,13 @@ import copy
 import time
 
 class Timeout():
-	"The Algorithm Timed Out, Ensure Your Puzzle Is Valid and That It Has One Solution"
+	"The algorithm timed out, ensure your puzzle is valid (It may just be too difficult for the time limit)"
 
 class TooFewGivens():
-	"Please Provide More Givens"
+	"Please provide more givens"
 	
 class SolverFailed():
-	"Something Went Wrong (Perhaps There Were Invalid Inputs)"
+	"Something went wrong (Perhaps there were invalid inputs)"
 
 #this library takes and returns a 9x9 list of ints
 #provide givens in their given location, and use 0's for unknown squares
