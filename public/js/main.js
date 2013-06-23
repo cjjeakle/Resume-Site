@@ -1,8 +1,3 @@
-$(function()
-{
-
-});
-
 function findByClass(className, domNode, tagName) {
 	if (domNode == null)
 	{
@@ -45,4 +40,46 @@ function toggleShow(obj)
 		}
 	}
 }
+
+
+function loadExampleBoard(board)
+{
+	var evilExample = [[0,0,0,6,0,0,0,0,1], 
+						[7,0,0,0,9,4,5,0,0], 
+						[4,0,0,0,0,2,0,0,0], 
+						[0,5,0,0,1,0,7,0,2], 
+						[0,2,0,0,0,0,0,6,0], 
+						[3,0,6,0,8,0,0,9,0], 
+						[0,0,0,8,0,0,0,0,7], 
+						[0,0,3,7,6,0,0,0,8], 
+						[9,0,0,0,0,3,0,0,0]];
+
+	clearBoard();
+	if (board == null)
+	{
+		board = evilExample;
+	}
+	for (i = 0; i < 9; i++)
+	{
+		for (j = 0; j < 9; j++)
+		{
+			if (board[i][j] != null && board[i][j] != 0)
+			{
+				document.getElementById('sq'+(i*9+j)).value = board[i][j];
+			}
+		}
+	}
+}
+
+function clearBoard()
+{
+	for (i = 0; i < 9; i++)
+	{
+		for (j = 0; j < 9; j++)
+		{
+			document.getElementById('sq'+(i*9+j)).value = "";
+		}
+	}
+}
+
 

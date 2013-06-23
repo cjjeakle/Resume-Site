@@ -5,8 +5,6 @@ block append moreScripts
 block append content
 	#content
 		h3 Solve Sudokus
-		|Note that you can get the previous board state by using the back button
-		br
 		div( style = 'font-size: 90%; line-height: 125%;')
 			p
 				|Be careful, currently the branch and bound alogrithm
@@ -14,7 +12,9 @@ block append content
 				| Sudokus of any difficulty from sites like
 				a(href = 'http://www.websudoku.com/', target = '_blank') websudoku.com 
 				| should be fine, though.
-		br
+				br
+				br
+				a(href = 'javascript:loadExampleBoard(null)') Try this "evil" difficulty example
 		div.sudoku
 			form(action = url, method=post, id = 'sudokuBoard')
 				//create the sudoku board for i/o
@@ -45,7 +45,7 @@ block append content
 				a(href='javascript:document.getElementById(\'sudokuBoard\').submit()').btn.center
 						|&nbsp;Solve
 				|&nbsp;&nbsp;&nbsp;&nbsp;
-				a(href = '/sudokusolver').btn.center
+				a(href = 'javascript:clearBoard()').btn.center
 						|&nbsp;Clear&nbsp;
 		br
 		!=annotation
