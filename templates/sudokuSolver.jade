@@ -48,8 +48,10 @@ block append content
 				a(href = 'javascript:clearBoard()').btn.center
 						|&nbsp;Clear&nbsp;
 		br
-		!=annotation
-		br
+		div(id = 'sudokuInfo')
+			if (annotation == null or annotation == '')
+				br
+			!=annotation
 		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/SudokuSolver.py/', target = '_blank')
 			|Check out the algorithm on my github
 block append rightEdge

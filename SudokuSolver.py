@@ -3,7 +3,8 @@ import copy
 import time
 
 class Timeout():
-	"The algorithm timed out, ensure your puzzle is valid (It may just be too difficult for the time limit)"
+	"The algorithm timed out, ensure your puzzle is valid"
+	"(It may just be too difficult for the time limit)"
 
 class TooFewGivens():
 	"Please provide more givens"

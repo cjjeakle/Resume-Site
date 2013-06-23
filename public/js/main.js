@@ -80,6 +80,7 @@ function clearBoard()
 			document.getElementById('sq'+(i*9+j)).value = "";
 		}
 	}
+	document.getElementById('sudokuInfo').innerHTML = "<br/>";
 }
 
 
