@@ -114,6 +114,12 @@ def solveSudoku():
 		"annotation": annotation,
 	};
 	return render_template('sudokuSolver.jade', **obj)
+	
+@app.route('/pong')
+def pong():
+	obj = {
+	};
+	return render_template('pong.jade', **obj)
 
 @app.route('/about')
 def about():
