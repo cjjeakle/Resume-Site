@@ -6,11 +6,13 @@ canvas.height = 350;
 canvas.style = 'border: 1px solid;';
 var div = document.getElementById('pong');
 div.appendChild(canvas);
+div.appendChild(document.createElement("br"));
 
 //Game components (speed is in px per sec)
 var aiAccuracy = 1.15; //how accurate predictions are for the AI (1 is real time, 1.5 is psychic more or less)
 var aiSpeed = 115; //the speed of the AI's paddle movement, left paddle defaults to 192 
 var score = 0;
+var then;
 
 var left = {//left paddle
 	speed: 192,
@@ -31,31 +33,65 @@ var ball = {
 	ySpeed: 128,
 	width: 15,
 	height: 15,
-	x: left.width + 1,
+	x: left.width,
 	y: canvas.height / 2,
 };
 var aiBall = {
 	xSpeed: (ball.xSpeed * aiAccuracy),
 	ySpeed: (ball.ySpeed * aiAccuracy),
-	width: 15,
-	height: 15,
-	x: left.width + 1,
-	y: (canvas.height / 2),
+	width: ball.width,
+	height: ball.height,
+	x: left.width,
+	y: canvas.height / 2,
 };
 
 
 
 //Watch for keyboard input
-var keysDown = {};
+var up = false, dn = false;
 addEventListener("keydown", function (e) {
-	keysDown[e.keyCode] = true;
+	if(e.keyCode == 38)
+	{
+		up = true;
+	}
+	if(e.keyCode == 40)
+	{
+		dn = true;
+	}
 }, false);
 
 addEventListener("keyup", function (e) {
-	delete keysDown[e.keyCode];
+	if(e.keyCode == 38)
+	{
+		up = false;
+	}
+	if(e.keyCode == 40)
+	{
+		dn = false;
+	}
 }, false);
 
+//watch for mouse/touch input
+var clkUp = false;
+var clkDn = false;
+canvas.addEventListener("mousedown", function (e) {
+	var boundingRect = context.canvas.getBoundingClientRect();
+	if (e.offsetx <= canvas.height / 2)
+	{
+		clkUp = true;
+		flkDn = false;
+	}
+	else
+	{
+		clkDn = true;
+		clkUp = false;
+	}
+}, false);
 
+canvas.addEventListener("mouseup", function (e) {
+	clkUp = false;
+	clkDn = false;
+}, false);
 
 //Update game objects
 function update (seconds) {
@@ -69,14 +105,14 @@ function update (seconds) {
 	aiBall.y += aiBall.ySpeed * seconds;
 
 	//Use keyboard input
-	if (38 in keysDown) {
+	if (up) {
 		left.y -= left.speed * seconds;
 		if (left.y < 0)
 		{
 			left.y = 0;
 		}
 	}
-	if (40 in keysDown) {
+	if (dn) {
 		left.y += left.speed * seconds;
 		if (left.y + left.height > canvas.height)
 		{
@@ -194,11 +230,19 @@ function draw () {
 	//The ball
 	context.beginPath()
 	context.rect(ball.x, ball.y, ball.width, ball.height);
-	context.fillStyle = 'yellow';
+	context.fillStyle = 'grey';
 	context.fill();
 	context.lineWidth = 1;
 	context.strokeStyle = 'black';
 	context.stroke();
+	
+	//the aiBall, for debugging
+	/*
+	context.beginPath()
+	context.rect(aiBall.x, aiBall.y, aiBall.width, aiBall.height);
+	context.fillStyle = 'red';
+	context.fill();
+	*/
 	
 	//Score
 	context.fillStyle = "#000000";
@@ -208,17 +252,29 @@ function draw () {
 	context.fillText("Score: " + score, canvas.width / 2.05, 0);
 }
 
-//Run the Game
+//Game driving function
 function pong()
 {
 	var now = Date.now();
 	var timer = now - then;
-
 	update(timer / 1000);
 	draw();
 
+	right.speed = aiSpeed;
 	then = now;
 }
 
-var then = Date.now();
-setInterval(pong, 1); //Loop the pong() function, execute as fast as possible
+//Run the game
+function initPong()
+{
+	then = Date.now();
+	setInterval(pong, 1); //Loop the pong() function, execute as fast as possible
+}
+
+//run one iteration of the game to display its starting state
+draw();
+
+
+
+
+
