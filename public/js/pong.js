@@ -3,46 +3,47 @@ var canvas = document.createElement("canvas");
 var context = canvas.getContext("2d");
 canvas.width = 450;
 canvas.height = 350;
-//canvas.style.border = '1px solid;';
+canvas.style = 'border: 1px solid;';
 var div = document.getElementById('pong');
 div.appendChild(canvas);
 
 //Game components (speed is in px per sec)
-var aiAccuracy = 1.05; //how accuracy predictions are for the AI (1 is real time, 1.5 is psychic more or less)
-var aiSpeed = 115; //the speed of the AI's paddle movement, player defaults to 192 
+var aiAccuracy = 1.15; //how accurate predictions are for the AI (1 is real time, 1.5 is psychic more or less)
+var aiSpeed = 115; //the speed of the AI's paddle movement, left paddle defaults to 192 
 var score = 0;
-var player = {
+
+var left = {//left paddle
 	speed: 192,
 	width: 10,
 	height: 50,
 	x: 0,
 	y: 0,
 };
-var opponent = {
+var right = {//right paddle
 	speed: aiSpeed,
 	width: 10,
 	height: 50,
 	x: canvas.width - 10,
 	y: 0,
 };
-
 var ball = {
 	xSpeed: 128,
 	ySpeed: 128,
 	width: 15,
 	height: 15,
-	x: player.width + 1,
+	x: left.width + 1,
 	y: canvas.height / 2,
 };
-
 var aiBall = {
 	xSpeed: (ball.xSpeed * aiAccuracy),
 	ySpeed: (ball.ySpeed * aiAccuracy),
 	width: 15,
 	height: 15,
-	x: player.width + 1,
+	x: left.width + 1,
 	y: (canvas.height / 2),
 };
+
+
 
 //Watch for keyboard input
 var keysDown = {};
@@ -54,54 +55,55 @@ addEventListener("keyup", function (e) {
 	delete keysDown[e.keyCode];
 }, false);
 
+
+
 //Update game objects
 function update (seconds) {
 	var positiveSpeed = (ball.xSpeed > 0);
-	var inOpponentCourt = (ball.x > canvas.width / 2);
+	var inRightCourt = (ball.x > canvas.width / 2);
 	
 	//update ball locations	
 	ball.x += ball.xSpeed * seconds;
 	ball.y += ball.ySpeed * seconds;
 	aiBall.x += aiBall.xSpeed * seconds;
 	aiBall.y += aiBall.ySpeed * seconds;
-											//press in top/bottom half of screen//
 
 	//Use keyboard input
 	if (38 in keysDown) {
-		player.y -= player.speed * seconds;
-		if (player.y < 0)
+		left.y -= left.speed * seconds;
+		if (left.y < 0)
 		{
-			player.y = 0;
+			left.y = 0;
 		}
 	}
 	if (40 in keysDown) {
-		player.y += player.speed * seconds;
-		if (player.y + player.height > canvas.height)
+		left.y += left.speed * seconds;
+		if (left.y + left.height > canvas.height)
 		{
-			player.y = canvas.height - player.height;
+			left.y = canvas.height - left.height;
 		}
 	}
 	
 	simulateAi(seconds);
 	
-	ball = collisions(ball);
-	aiBall = collisions(aiBall);
+	collisions(ball);
+	collisions(aiBall);
 	
 	//Scoring
 	if (ball.x <= 0)
 	{
 		score -= 1;
-		ball.x = (canvas.width - (opponent.width + ball.width));
+		ball.x = (canvas.width - (right.width + ball.width));
 		ball.y = Math.floor(Math.random() * canvas.height + 1);
 	}
 	else if (ball.x >= canvas.width)
 	{
 		score += 1;
-		ball.x = player.width;
+		ball.x = left.width;
 		ball.y = Math.floor(Math.random() * canvas.height + 1);
 	}
 	if ((!positiveSpeed && ball.xSpeed > 0) || 
-		(inOpponentCourt && ball.x < canvas.width / 2 && ball.xSpeed > 0))
+		(inRightCourt && ball.x < canvas.width / 2 && ball.xSpeed > 0))
 	{
 		refreshAi();
 	}
@@ -118,27 +120,26 @@ function refreshAi()
 
 function simulateAi(seconds)
 {
-	if(aiBall.x + aiBall.width >= canvas.width - opponent.width)
+	if(aiBall.x + aiBall.width >= canvas.width - right.width)
 	{
 		aiBall.xSpeed = 0;
 		aiBall.ySpeed = 0;
 	}
-	if (opponent.y + (opponent.height / 2) > aiBall.y + (aiBall.height / 2) &&
-	aiBall.xSpeed > 0)
+	var diff = (right.y + (right.height / 2) - aiBall.y + (aiBall.height / 2));
+	if  (diff >= right.speed * seconds && aiBall.xSpeed >= 0)
 	{
-		opponent.y -= opponent.speed * seconds;
-		if (opponent.y < 0)
+		right.y -= right.speed * seconds;
+		if (right.y < 0)
 		{
-			opponent.y = 0;
+			right.y = 0;
 		}
 	}
-	else if (opponent.y + (opponent.height / 2) < aiBall.y + (aiBall.height / 2) &&
-	aiBall.xSpeed > 0)
+	else if (diff < -right.speed * seconds && aiBall.xSpeed >= 0)
 	{
-		opponent.y += opponent.speed * seconds;
-		if (opponent.y + opponent.height > canvas.height)
+		right.y += right.speed * seconds;
+		if (right.y + right.height > canvas.height)
 		{
-			opponent.y = canvas.height - opponent.height;
+			right.y = canvas.height - right.height;
 		}
 	}
 }
@@ -146,21 +147,26 @@ function simulateAi(seconds)
 function collisions (inputBall)
 {
 	//Paddle Collisions
-	if ((inputBall.x <= player.width && (inputBall.y + inputBall.height >= player.y) && 
-		(inputBall.y + inputBall.height <= player.y + player.height)) ||
-		((inputBall.x + inputBall.width >= canvas.width - opponent.width) && 
-		(inputBall.y + inputBall.height >= opponent.y) && 
-		(inputBall.y + inputBall.height <= opponent.y + opponent.height)))
+	if ((inputBall.x < left.width && (inputBall.y + inputBall.height > left.y) && 
+		(inputBall.y <= left.y + left.height)))
 	{	
+		inputBall.x = left.width;
+		inputBall.xSpeed = -inputBall.xSpeed;
+	}
+	else if (((inputBall.x + inputBall.width > canvas.width - right.width) && 
+		(inputBall.y + inputBall.height > right.y) && 
+		(inputBall.y <= right.y + right.height)))
+	{
+		inputBall.x = canvas.width - right.width - inputBall.width;
 		inputBall.xSpeed = -inputBall.xSpeed;
 	}
 	//Ceiling and floor collisions
-	if (inputBall.y <= 0)
+	if (inputBall.y < 0)
 	{
 		inputBall.y = 0;
 		inputBall.ySpeed = -inputBall.ySpeed;
 	}
-	else if (inputBall.y + inputBall.height >= canvas.height)
+	else if (inputBall.y + inputBall.height > canvas.height)
 	{
 		inputBall.y = canvas.height - inputBall.height;
 		inputBall.ySpeed = -inputBall.ySpeed;
@@ -173,15 +179,15 @@ function draw () {
 	//Clear the canvas for the next drawing cycle
 	canvas.width = canvas.width;
 	
-	//The player's paddle
+	//The left paddle
 	context.beginPath();
-	context.rect(player.x, player.y, player.width, player.height);
+	context.rect(left.x, left.y, left.width, left.height);
 	context.fillStyle = 'black';
 	context.fill();
 	
-	//The opponent's paddle
+	//The right paddle
 	context.beginPath();
-	context.rect(opponent.x, opponent.y, opponent.width, opponent.height);
+	context.rect(right.x, right.y, right.width, right.height);
 	context.fillStyle = 'black';
 	context.fill();
 	
