@@ -10,6 +10,7 @@ div.appendChild(document.createElement("br"));
 //Game components (speed is in px per sec)
 var aiAccuracy = 1.15; //how accurate predictions are for the AI (1 is real time, 1.5 is psychic more or less)
 var aiSpeed = 115; //the speed of the AI's paddle movement, left paddle defaults to 192 
+var ballYSpeed = 128; //the default ball speed
 var score = 0;
 var then;
 
@@ -180,6 +181,37 @@ function collisions (inputBall)
 	{	
 		inputBall.x = left.width;
 		inputBall.xSpeed = -inputBall.xSpeed;
+		
+		if (inputBall.y >= left.y + (left.height * 7 / 8)) //intense down
+		{
+			if (inputBall.ySpeed > 0)
+			{
+				inputBall.ySpeed *= -1.25;
+			}
+			else
+			{
+				inputBall.ySpeed *= 1.25;
+			}
+		}
+		else if (inputBall.y >= left.y + (left.height / 8))//intense up
+		{
+			if (inputBall.ySpeed < 0)
+			{
+				inputBall.ySpeed *= -1.25;
+			}
+			else
+			{
+				inputBall.ySpeed *= 1.25;
+			}
+		}
+		else if (inputBall.y >= left.y + (left.height * 3 / 4))//slight down
+		{
+			inputBall.ySpeed -= ballYSpeed * .05;
+		}
+		else if (inputBall.y >= left.y + (left.height / 4))//slight up
+		{
+			inputBall.ySpeed += ballYSpeed * .05;
+		}
 	}
 	else if (((inputBall.x + inputBall.width > canvas.width - right.width) && 
 		(inputBall.y + inputBall.height > right.y) && 
