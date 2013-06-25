@@ -3,7 +3,6 @@ var canvas = document.createElement("canvas");
 var context = canvas.getContext("2d");
 canvas.width = 450;
 canvas.height = 350;
-canvas.style = 'border: 1px solid;';
 var div = document.getElementById('pong');
 div.appendChild(canvas);
 div.appendChild(document.createElement("br"));
@@ -50,6 +49,11 @@ var aiBall = {
 //Watch for keyboard input
 var up = false, dn = false;
 addEventListener("keydown", function (e) {
+	
+    if([38, 40].indexOf(e.keyCode) > -1)
+    {
+        e.preventDefault(); //prevent arrow key nav on the page
+    }
 	if(e.keyCode == 38)
 	{
 		up = true;
