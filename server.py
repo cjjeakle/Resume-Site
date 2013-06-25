@@ -115,11 +115,11 @@ def solveSudoku():
 	};
 	return render_template('sudokuSolver.jade', **obj)
 	
-@app.route('/pong')
+@app.route('/pingpong')
 def pong():
 	obj = {
 	};
-	return render_template('pong.jade', **obj)
+	return render_template('pingPong.jade', **obj)
 
 @app.route('/about')
 def about():

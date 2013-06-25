@@ -3,7 +3,7 @@ var canvas = document.createElement("canvas");
 var context = canvas.getContext("2d");
 canvas.width = 450;
 canvas.height = 350;
-var div = document.getElementById('pong');
+var div = document.getElementById('pingPong');
 div.appendChild(canvas);
 div.appendChild(document.createElement("br"));
 
@@ -43,8 +43,6 @@ var aiBall = {
 	x: left.width,
 	y: canvas.height / 2,
 };
-
-
 
 //Watch for keyboard input
 var up = false, dn = false;
@@ -247,7 +245,7 @@ function draw () {
 }
 
 //Game driving function
-function pong()
+function pingPong()
 {
 	var now = Date.now();
 	var timer = now - then;
@@ -259,10 +257,10 @@ function pong()
 }
 
 //Run the game
-function initPong()
+function initPingPong()
 {
 	then = Date.now();
-	setInterval(pong, 1); //Loop the pong() function, execute as fast as possible
+	setInterval(pingPong, 1); //Loop the pingPong() function as quickly as possible
 }
 
 //run one iteration of the game to display its starting state

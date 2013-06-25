@@ -1,0 +1,23 @@
+extends template
+
+block append moreScripts
+	<link rel="stylesheet" href="css/sudoku.css">
+	title
+		|Chris Jeakle | Ping-Pong
+
+block append content
+	#content 
+		h3 Ping Pong
+		div(style = 'font-size: 90%; line-height: 125%;')
+			p
+				|Play using the up and down arrow keys or use the mouse
+				br
+				|(Touch screens can tap where you want the paddle to move)
+		div(style = 'display:inline-block;')
+			div(id = 'pingPong')
+				script(src="js/pingPong.js", type='text/javascript')
+				a(href = 'javascript:initPingPong();', style = 'text-align: center;').btn Play!
+
+block append rightEdge
+	|&nbsp;
+			
