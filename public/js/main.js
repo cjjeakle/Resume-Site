@@ -31,12 +31,12 @@ function toggleShow(obj)
 		if (hidden)
 		{
 			titles[i].innerHTML = "Navigation &#9658";
-		    elts[i].style.display = 'none';
+		    elts[i].style.display = "none";
 		}
 		else
 		{
-			titles[i].innerHTML = 'Navigation &#9660';
-		    elts[i].style.display = 'inherit';
+			titles[i].innerHTML = "Navigation &#9660"
+		    elts[i].style.display = "inherit";
 		}
 	}
 }

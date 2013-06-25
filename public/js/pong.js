@@ -76,25 +76,15 @@ addEventListener("keyup", function (e) {
 }, false);
 
 //watch for mouse/touch input
-var clkUp = false;
-var clkDn = false;
-canvas.addEventListener("mousedown", function (e) {
-	var boundingRect = context.canvas.getBoundingClientRect();
-	if (e.offsetx <= canvas.height / 2)
-	{
-		clkUp = true;
-		flkDn = false;
-	}
-	else
-	{
-		clkDn = true;
-		clkUp = false;
-	}
+var mouse = false;
+var mouseY = 0;
+canvas.addEventListener("mousemove", function (e) {
+	mouse = true;
+	mouseY = e.offsetY; 
 }, false);
 
-canvas.addEventListener("mouseup", function (e) {
-	clkUp = false;
-	clkDn = false;
+canvas.addEventListener("mouseout", function (e) {
+	mouse = false;
 }, false);
 
 //Update game objects
@@ -108,15 +98,15 @@ function update (seconds) {
 	aiBall.x += aiBall.xSpeed * seconds;
 	aiBall.y += aiBall.ySpeed * seconds;
 
-	//Use keyboard input
-	if (up) {
+	//Use keyboard and mouse input
+	if (up || (mouse && mouseY <= left.y + (left.height * 3 / 4))) {
 		left.y -= left.speed * seconds;
 		if (left.y < 0)
 		{
 			left.y = 0;
 		}
 	}
-	if (dn) {
+	if (dn || (mouse && mouseY >= left.y + (left.height / 4))) {
 		left.y += left.speed * seconds;
 		if (left.y + left.height > canvas.height)
 		{
@@ -217,7 +207,7 @@ function collisions (inputBall)
 //Draw everything
 function draw () {
 	//Clear the canvas for the next drawing cycle
-	canvas.width = canvas.width;
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	
 	//The left paddle
 	context.beginPath();
