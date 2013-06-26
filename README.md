@@ -1,6 +1,8 @@
 ## My Personal Website
 
-Build with the help of the Michigan Hackers.
+Visit the live site: http://www.chrisjeakle.com
+
+Built with the help of the Michigan Hackers.
 See their awesome tutorial for getting started making websites at: 
 https://github.com/michiganhackers/heroku-py-demo.git
 
