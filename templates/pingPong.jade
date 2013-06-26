@@ -19,7 +19,11 @@ block append content
 			div(id = 'pingPong')
 				script(src="js/requestNextAnimationFrame.js", type='text/javascript')
 				script(src="js/pingPong.js", type='text/javascript')
-				a(href = 'javascript:initPingPong();', style = 'text-align: center;').btn Play!
+				a(href = 'javascript:initPingPong();', id = 'playBtn').btn Play!
+				a(href = 'javascript:setPingPongDifficulty(&quot;easy&quot;);', style = 'display:none;').btn.hide easy
+				a(href = 'javascript:setPingPongDifficulty(&quot;medium&quot;);', style = 'display:none;').btn.hide medium
+				a(href = 'javascript:setPingPongDifficulty(&quot;hard&quot;);', style = 'display:none;').btn.hide hard
+				
 		br
 		br
 		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/public/js/pingPong.js', target = '_blank')

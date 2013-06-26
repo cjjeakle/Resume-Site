@@ -41,6 +41,23 @@ function toggleShow(obj)
 	}
 }
 
+//pass in a boolean to store hidden or not and the class to toggle
+function setHiddenByClass(hidden, objClass)
+{
+	elts = findByClass(objClass, null, null);
+	for (i = 0; i < elts.length; i++)
+	{	
+		if (hidden)
+		{
+		    elts[i].style.display = "none";
+		}
+		else
+		{
+		    elts[i].style.display = "inherit";
+		}
+	}
+}
+
 
 function loadExampleBoard(board)
 {

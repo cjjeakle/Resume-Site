@@ -63,7 +63,7 @@ function initState ()
 	right.y = 0;
 	
 	ball.xSpeed = 128;
-	ball.ySpeed = 128;
+	ball.ySpeed = ballYSpeed;
 	ball.width = 15;
 	ball.height = 15;
 	ball.x = left.width;
@@ -283,7 +283,7 @@ function draw () {
 	context.lineTo(canvas.width / 2 - 2, canvas.height);
 	context.moveTo(canvas.width / 2 + 2, 15);
 	context.lineTo(canvas.width / 2 + 2, canvas.height);
-	context.fillStyle = 'blue';
+	context.strokeStyle = 'grey';
 	context.stroke();
 	
 	//The left paddle
@@ -302,9 +302,9 @@ function draw () {
 	context.beginPath()
 	context.rect(ball.x, ball.y, ball.width, ball.height);
 	context.fillStyle = 'grey';
-	context.fill();
 	context.lineWidth = 1;
 	context.strokeStyle = 'black';
+	context.fill();
 	context.stroke();
 	
 	//the aiBall, for debugging
@@ -337,7 +337,35 @@ function pingPong(time)
 //Run the game
 function initPingPong()
 {
+	document.getElementById('playBtn').innerHTML = 'Reset';
+	document.getElementById('playBtn').href = 'javascript:initState();';
+	setHiddenByClass(false, 'hide');
 	requestNextAnimationFrame(pingPong);
+}
+
+function setPingPongDifficulty(diff)
+{
+	if (diff == 'easy')
+	{
+		aiAccuracy = 1.0;
+		aiSpeed = 100;
+		playerSpeed = 192;
+		ballYSpeed = 96;
+	}
+	else if (diff == 'medium')
+	{
+		aiAccuracy = 1.15;
+		aiSpeed = 115;
+		playerSpeed = 160;
+		ballYSpeed = 128;
+	}
+	else if (diff == 'hard')
+	{
+		aiAccuracy = 1.25;
+		aiSpeed = 130;
+		playerSpeed = 128;
+		ballYSpeed = 255;
+	}
 }
 
 //run one iteration of the game to display its starting state
