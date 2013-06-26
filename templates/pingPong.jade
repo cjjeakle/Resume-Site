@@ -2,12 +2,13 @@ extends template
 
 block append moreScripts
 	<link rel="stylesheet" href="css/sudoku.css">
+	<meta name="description" content="Chris Jeakle's web page. Check out what I am up to and the things I am working on." />
 	title
 		|Chris Jeakle | Ping-Pong
 
 block append content
 	#content 
-		h3 Ping Pong
+		h3 Ping-Pong
 		div(style = 'font-size: 90%; line-height: 125%;')
 			p
 				|Play using the up and down arrow keys or use the mouse
@@ -15,8 +16,13 @@ block append content
 				|(Touch screens can tap where you want the paddle to move)
 		div(style = 'display:inline-block;')
 			div(id = 'pingPong')
+				script(src="js/requestNextAnimationFrame.js", type='text/javascript')
 				script(src="js/pingPong.js", type='text/javascript')
 				a(href = 'javascript:initPingPong();', style = 'text-align: center;').btn Play!
+		br
+		br
+		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/public/js/pingPong.js', target = '_blank')
+			|Check out the implementation on my github
 
 block append rightEdge
 	|&nbsp;

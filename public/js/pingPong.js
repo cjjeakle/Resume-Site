@@ -8,42 +8,53 @@ div.appendChild(canvas);
 div.appendChild(document.createElement("br"));
 
 //Game components (speed is in px per sec)
-var aiAccuracy = 1.15; //how accurate predictions are for the AI (1 is real time, 1.5 is psychic more or less)
-var aiSpeed = 115; //the speed of the AI's paddle movement, left paddle defaults to 192 
+var aiAccuracy = 1.15; //how far ahead predictions are for the AI
+var aiSpeed = 115; //the speed of the AI's paddle movement
+var playerSpeed = 192; //the speed of the player's paddle
 var ballYSpeed = 128; //the default ball speed
 var score = 0;
-var then;
+var prev;
 
-var left = {//left paddle
-	speed: 192,
-	width: 10,
-	height: 50,
-	x: 0,
-	y: 0,
-};
-var right = {//right paddle
-	speed: aiSpeed,
-	width: 10,
-	height: 50,
-	x: canvas.width - 10,
-	y: 0,
-};
-var ball = {
-	xSpeed: 128,
-	ySpeed: 128,
-	width: 15,
-	height: 15,
-	x: left.width,
-	y: canvas.height / 2,
-};
-var aiBall = {
-	xSpeed: (ball.xSpeed * aiAccuracy),
-	ySpeed: (ball.ySpeed * aiAccuracy),
-	width: ball.width,
-	height: ball.height,
-	x: left.width,
-	y: canvas.height / 2,
-};
+var left; //left paddle
+var right; //right paddle
+var ball;
+var aiBall;
+initGame();
+
+function initGame ()
+{
+	score = 0;
+	left = {
+		speed: playerSpeed,
+		width: 10,
+		height: 50,
+		x: 0,
+		y: 0,
+	};
+	right = {
+		speed: aiSpeed,
+		width: 10,
+		height: 50,
+		x: canvas.width - 10,
+		y: 0,
+	};
+	ball = {
+		xSpeed: 128,
+		ySpeed: 128,
+		width: 15,
+		height: 15,
+		x: left.width,
+		y: canvas.height / 2,
+	};
+	aiBall = {
+		xSpeed: (ball.xSpeed * aiAccuracy),
+		ySpeed: (ball.ySpeed * aiAccuracy),
+		width: ball.width,
+		height: ball.height,
+		x: left.width,
+		y: canvas.height / 2,
+	};
+}
 
 //Watch for keyboard input
 var up = false, dn = false;
@@ -98,14 +109,14 @@ function update (seconds) {
 	aiBall.y += aiBall.ySpeed * seconds;
 
 	//Use keyboard and mouse input
-	if (up || (mouse && mouseY <= left.y + (left.height * 3 / 4))) {
+	if (up || (mouse && mouseY < left.y + left.height / 2)) {
 		left.y -= left.speed * seconds;
 		if (left.y < 0)
 		{
 			left.y = 0;
 		}
 	}
-	if (dn || (mouse && mouseY >= left.y + (left.height / 4))) {
+	if (dn || (mouse && mouseY > left.y + left.height / 2)) {
 		left.y += left.speed * seconds;
 		if (left.y + left.height > canvas.height)
 		{
@@ -124,12 +135,22 @@ function update (seconds) {
 		score -= 1;
 		ball.x = (canvas.width - (right.width + ball.width));
 		ball.y = Math.floor(Math.random() * canvas.height + 1);
+		ball.ySpeed = math.random() * ball.ySpeed;
+		if (ball.ySpeed < ballYSpeed * .8)
+		{
+			ball.ySpeed = ballYSpeed;
+		}
 	}
 	else if (ball.x >= canvas.width)
 	{
 		score += 1;
 		ball.x = left.width;
 		ball.y = Math.floor(Math.random() * canvas.height + 1);
+		ball.ySpeed = math.random() * ball.ySpeed;
+		if (ball.ySpeed < ballYSpeed * .8)
+		{
+			ball.ySpeed = ballYSpeed;
+		}
 	}
 	if ((!positiveSpeed && ball.xSpeed > 0) || 
 		(inRightCourt && ball.x < canvas.width / 2 && ball.xSpeed > 0))
@@ -182,35 +203,35 @@ function collisions (inputBall)
 		inputBall.x = left.width;
 		inputBall.xSpeed = -inputBall.xSpeed;
 		
-		if (inputBall.y >= left.y + (left.height * 7 / 8)) //intense down
+		if (inputBall.y >= left.y + (left.height * 9 / 10)) //intense down
 		{
 			if (inputBall.ySpeed > 0)
 			{
-				inputBall.ySpeed *= -1.25;
+				inputBall.ySpeed *= 1.20;
 			}
 			else
 			{
-				inputBall.ySpeed *= 1.25;
+				inputBall.ySpeed *= -1.20;
 			}
 		}
-		else if (inputBall.y >= left.y + (left.height / 8))//intense up
+		else if (inputBall.y <= left.y + (left.height / 10)) //intense up
 		{
 			if (inputBall.ySpeed < 0)
 			{
-				inputBall.ySpeed *= -1.25;
+				inputBall.ySpeed *= 1.20;
 			}
 			else
 			{
-				inputBall.ySpeed *= 1.25;
+				inputBall.ySpeed *= -1.20;
 			}
 		}
-		else if (inputBall.y >= left.y + (left.height * 3 / 4))//slight down
-		{
-			inputBall.ySpeed -= ballYSpeed * .05;
-		}
-		else if (inputBall.y >= left.y + (left.height / 4))//slight up
+		else if (inputBall.y >= left.y + (left.height * 3 / 4)) //slight down
 		{
 			inputBall.ySpeed += ballYSpeed * .05;
+		}
+		else if (inputBall.y <= left.y + (left.height / 4)) //slight up
+		{
+			inputBall.ySpeed -= ballYSpeed * .05;
 		}
 	}
 	else if (((inputBall.x + inputBall.width > canvas.width - right.width) && 
@@ -237,7 +258,16 @@ function collisions (inputBall)
 //Draw everything
 function draw () {
 	//Clear the canvas for the next drawing cycle
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.clearRect(0, 0, canvas.width, canvas.height);	
+	
+	//The Mid-line
+	context.beginPath();
+	context.moveTo(canvas.width / 2 - 2, 15);
+	context.lineTo(canvas.width / 2 - 2, canvas.height);
+	context.moveTo(canvas.width / 2 + 2, 15);
+	context.lineTo(canvas.width / 2 + 2, canvas.height);
+	context.fillStyle = 'blue';
+	context.stroke();
 	
 	//The left paddle
 	context.beginPath();
@@ -273,26 +303,24 @@ function draw () {
 	context.font = "12px Helvetica";
 	context.textAlign = "center";
 	context.textBaseline = "top";
-	context.fillText("Score: " + score, canvas.width / 2.05, 0);
+	context.fillText("Score: " + score, canvas.width / 2.02, 0);
 }
 
 //Game driving function
-function pingPong()
+function pingPong(time)
 {
-	var now = Date.now();
-	var timer = now - then;
+	var timer = time - prev;
 	update(timer / 1000);
 	draw();
 
-	right.speed = aiSpeed;
-	then = now;
+	prev = time;
+	requestNextAnimationFrame(pingPong);
 }
 
 //Run the game
 function initPingPong()
 {
-	then = Date.now();
-	setInterval(pingPong, 1); //Loop the pingPong() function as quickly as possible
+	requestNextAnimationFrame(pingPong);
 }
 
 //run one iteration of the game to display its starting state
