@@ -12,48 +12,69 @@ var aiAccuracy = 1.15; //how far ahead predictions are for the AI
 var aiSpeed = 115; //the speed of the AI's paddle movement
 var playerSpeed = 192; //the speed of the player's paddle
 var ballYSpeed = 128; //the default ball speed
-var score = 0;
 var prev;
 
-var left; //left paddle
-var right; //right paddle
-var ball;
-var aiBall;
-initGame();
 
-function initGame ()
+score = 0;
+left = { 
+	Speed: 0, 
+	width: -1, 
+	height: -1, 
+	x: -1, 
+	y: -1
+};
+right = { 
+	Speed: 0, 
+	width: -1, 
+	height: -1, 
+	x: -1, 
+	y: -1
+};
+ball = { 
+	xSpeed: 0, 
+	ySpeed: 0, 
+	width: -1, 
+	height: -1, 
+	x: -1, 
+	y: -1
+};
+aiBall = { 
+	xSpeed: 0, 
+	ySpeed: 0, 
+	width: -1, 
+	height: -1, 
+	x: -1, 
+	y: -1
+};
+
+function initState ()
 {
 	score = 0;
-	left = {
-		speed: playerSpeed,
-		width: 10,
-		height: 50,
-		x: 0,
-		y: 0,
-	};
-	right = {
-		speed: aiSpeed,
-		width: 10,
-		height: 50,
-		x: canvas.width - 10,
-		y: 0,
-	};
-	ball = {
-		xSpeed: 128,
-		ySpeed: 128,
-		width: 15,
-		height: 15,
-		x: left.width,
-		y: canvas.height / 2,
-	};
-	aiBall = {
-		xSpeed: (ball.xSpeed * aiAccuracy),
-		ySpeed: (ball.ySpeed * aiAccuracy),
-		width: ball.width,
-		height: ball.height,
-		x: left.width,
-		y: canvas.height / 2,
-	};
+	left.speed = playerSpeed;
+	left.width = 10;
+	left.height = 50;
+	left.x = 0;
+	left.y = 0,
+	
+	right.speed = aiSpeed;
+	right.width = 10;
+	right.height = 50;
+	right.x = canvas.width - 10;
+	right.y = 0;
+	
+	ball.xSpeed = 128;
+	ball.ySpeed = 128;
+	ball.width = 15;
+	ball.height = 15;
+	ball.x = left.width;
+	ball.y = canvas.height / 2;
+
+	aiBall.xSpeed = (ball.xSpeed * aiAccuracy);
+	aiBall.ySpeed = (ball.ySpeed * aiAccuracy);
+	aiBall.width = ball.width;
+	aiBall.height = ball.height;
+	aiBall.x = left.width;
+	aiBall.y = canvas.height / 2;
 }
 
 //Watch for keyboard input
@@ -99,9 +120,15 @@ canvas.addEventListener("mouseout", function (e) {
 
 //Update game objects
 function update (seconds) {
+	if (!seconds)
+	{
+		//there are glitches where a browser can feed in a null time,
+		//which can break absolutely everything
+		return; 
+	}
 	var positiveSpeed = (ball.xSpeed > 0);
 	var inRightCourt = (ball.x > canvas.width / 2);
-	
+
 	//update ball locations	
 	ball.x += ball.xSpeed * seconds;
 	ball.y += ball.ySpeed * seconds;
@@ -123,34 +150,24 @@ function update (seconds) {
 			left.y = canvas.height - left.height;
 		}
 	}
-	
+
 	simulateAi(seconds);
-	
+
 	collisions(ball);
 	collisions(aiBall);
-	
+
 	//Scoring
 	if (ball.x <= 0)
 	{
 		score -= 1;
 		ball.x = (canvas.width - (right.width + ball.width));
 		ball.y = Math.floor(Math.random() * canvas.height + 1);
-		ball.ySpeed = math.random() * ball.ySpeed;
-		if (ball.ySpeed < ballYSpeed * .8)
-		{
-			ball.ySpeed = ballYSpeed;
-		}
 	}
 	else if (ball.x >= canvas.width)
 	{
 		score += 1;
 		ball.x = left.width;
 		ball.y = Math.floor(Math.random() * canvas.height + 1);
-		ball.ySpeed = math.random() * ball.ySpeed;
-		if (ball.ySpeed < ballYSpeed * .8)
-		{
-			ball.ySpeed = ballYSpeed;
-		}
 	}
 	if ((!positiveSpeed && ball.xSpeed > 0) || 
 		(inRightCourt && ball.x < canvas.width / 2 && ball.xSpeed > 0))
@@ -324,6 +341,8 @@ function initPingPong()
 }
 
 //run one iteration of the game to display its starting state
+initState();
+update(0);
 draw();
 
 
