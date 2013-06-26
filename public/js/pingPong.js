@@ -339,7 +339,7 @@ function initPingPong()
 {
 	document.getElementById('playBtn').innerHTML = 'Reset';
 	document.getElementById('playBtn').href = 'javascript:initState();';
-	setHiddenByClass(false, 'hide');
+	setStyleByClass('hidden', 'display:inherit; text-align:center; align:center; float:center;');
 	requestNextAnimationFrame(pingPong);
 }
 
@@ -349,14 +349,14 @@ function setPingPongDifficulty(diff)
 	{
 		aiAccuracy = 1.0;
 		aiSpeed = 100;
-		playerSpeed = 192;
+		playerSpeed = 256;
 		ballYSpeed = 96;
 	}
 	else if (diff == 'medium')
 	{
 		aiAccuracy = 1.15;
 		aiSpeed = 115;
-		playerSpeed = 160;
+		playerSpeed = 192;
 		ballYSpeed = 128;
 	}
 	else if (diff == 'hard')

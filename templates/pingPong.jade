@@ -15,16 +15,21 @@ block append content
 				|Use the up and down arrow keys or the mouse to control the left paddle
 				br
 				|(Touch device users should be able to tap where they want the paddle to move)
-		div(style = 'display:inline-block;')
-			div(id = 'pingPong')
-				script(src="js/requestNextAnimationFrame.js", type='text/javascript')
-				script(src="js/pingPong.js", type='text/javascript')
-				a(href = 'javascript:initPingPong();', id = 'playBtn').btn Play!
-				a(href = 'javascript:setPingPongDifficulty(&quot;easy&quot;);', style = 'display:none;').btn.hide easy
-				a(href = 'javascript:setPingPongDifficulty(&quot;medium&quot;);', style = 'display:none;').btn.hide medium
-				a(href = 'javascript:setPingPongDifficulty(&quot;hard&quot;);', style = 'display:none;').btn.hide hard
-				
-		br
+		div(id = 'pingPong', style = 'display:inline-block;')
+			script(src="js/requestNextAnimationFrame.js", type='text/javascript')
+			script(src="js/pingPong.js", type='text/javascript')
+			div(style = 'display:inline-block;')
+				a(href = 'javascript:initPingPong();', id = 'playBtn', style = 'display:inherit;').btn.hidden Play!
+				|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				a(href = 'javascript:setPingPongDifficulty(&quot;easy&quot;);', style = 'display:none;').btn.hidden easy
+				|&nbsp
+				a(href = 'javascript:setPingPongDifficulty(&quot;medium&quot;);', style = 'display:none;').btn.hidden medium
+				|&nbsp
+				a(href = 'javascript:setPingPongDifficulty(&quot;hard&quot;);', style = 'display:none;').btn.hidden hard
+				br
+				br
+				div(style = 'display:none').hidden
+					|Please reset to apply difficulty changes
 		br
 		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/public/js/pingPong.js', target = '_blank')
 			|Check out the implementation on my github
