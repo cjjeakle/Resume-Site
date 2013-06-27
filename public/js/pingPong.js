@@ -12,7 +12,8 @@ var aiAccuracy = 1.15; //how far ahead predictions are for the AI
 var aiSpeed = 115; //the speed of the AI's paddle movement
 var playerSpeed = 192; //the speed of the player's paddle
 var ballYSpeed = 128; //the default ball speed
-var prev;
+var prev = 0; //the previous value of time from "requestNextAnimationFrame()"
+var paused = false; //whether or not the game is paused
 
 
 score = 0;
@@ -49,6 +50,10 @@ aiBall = {
 
 function initState ()
 {
+	if (document.getElementById('resetNotification'))
+	{
+		document.getElementById('resetNotification').style.display = 'none';
+	}
 	score = 0;
 	left.speed = playerSpeed;
 	left.width = 10;
@@ -327,8 +332,11 @@ function draw () {
 function pingPong(time)
 {
 	var timer = time - prev;
-	update(timer / 1000);
-	draw();
+	if (!paused)
+	{
+		update(timer / 1000);
+		draw();
+	}
 
 	prev = time;
 	requestNextAnimationFrame(pingPong);
@@ -339,7 +347,7 @@ function initPingPong()
 {
 	document.getElementById('playBtn').innerHTML = 'Reset';
 	document.getElementById('playBtn').href = 'javascript:initState();';
-	setStyleByClass('hidden', 'display:inherit; text-align:center; align:center; float:center;');
+	setStyleByClass('hidden', 'display:inherit;');
 	requestNextAnimationFrame(pingPong);
 }
 
@@ -366,7 +374,22 @@ function setPingPongDifficulty(diff)
 		playerSpeed = 128;
 		ballYSpeed = 255;
 	}
+	document.getElementById('resetNotification').style.display = 'inherit';
 }
+
+function pausePingPong ()
+{
+	paused = !paused;
+	if (paused)
+	{
+		document.getElementById('pauseBtn').innerHTML = 'Resume';
+	}
+	else
+	{
+		document.getElementById('pauseBtn').innerHTML = 'Pause';
+	}
+}
+	
 
 //run one iteration of the game to display its starting state
 initState();
