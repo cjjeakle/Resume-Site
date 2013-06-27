@@ -117,6 +117,11 @@ var mouseY = 0;
 canvas.addEventListener("mousemove", function (e) {
 	mouse = true;
 	mouseY = e.offsetY; 
+	if (!mouseY)
+	{
+		var bound = canvas.getBoundingClientRect();
+		mouseY = e.clientY - bound.top;
+	}
 }, false);
 
 canvas.addEventListener("mouseout", function (e) {
