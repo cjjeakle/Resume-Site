@@ -350,8 +350,7 @@ function pingPong(time)
 //Run the game
 function initPingPong()
 {
-	document.getElementById('playBtn').innerHTML = 'Reset';
-	document.getElementById('playBtn').href = 'javascript:initState();';
+	document.getElementById('startBtn').style.display = 'none';
 	setStyleByClass('hidden', 'display:inherit;');
 	requestNextAnimationFrame(pingPong);
 }

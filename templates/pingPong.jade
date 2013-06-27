@@ -17,18 +17,20 @@ block append content
 		div(id = 'pingPong', style = 'display:inline-block;')
 			script(src="js/requestNextAnimationFrame.js", type='text/javascript')
 			script(src="js/pingPong.js", type='text/javascript')
-		div(style = 'width = 500px;').center
-			a(href = 'javascript:initPingPong();', id = 'playBtn', style = 'display:inherit;').btn.hidden Play!
-			|&nbsp
-			a(href = 'javascript:setPingPongDifficulty(&quot;easy&quot;);', style = 'display:none;').btn.hidden Easy
-			|&nbsp
-			a(href = 'javascript:setPingPongDifficulty(&quot;medium&quot;);', style = 'display:none;').btn.hidden Medium
-			|&nbsp
-			a(href = 'javascript:setPingPongDifficulty(&quot;hard&quot;);', style = 'display:none;').btn.hidden Hard
-			|&nbsp;
-			a(href = 'javascript:pausePingPong();', style = 'display:none;', id = 'pauseBtn').btn.hidden Pause
-			br
-			div(style = 'display:none', id = 'resetNotification')
+		div(style = 'width = 500px; text-align:center;')
+			div(style = 'display:inline-block;').center
+				a(href = 'javascript:initPingPong();', id = 'startBtn', style = 'display:inherit;').btn Play!
+				div(style = 'display:none;').hidden	
+					a(href = 'javascript:initState();', id = 'playBtn').btn Reset
+					&nbsp; &nbsp &nbsp
+					a(href = 'javascript:setPingPongDifficulty(&quot;easy&quot;);').btn Easy
+					|&nbsp
+					a(href = 'javascript:setPingPongDifficulty(&quot;medium&quot;);').btn Medium
+					|&nbsp
+					a(href = 'javascript:setPingPongDifficulty(&quot;hard&quot;);').btn Hard
+					&nbsp; &nbsp &nbsp
+					a(href = 'javascript:pausePingPong();', id = 'pauseBtn').btn Pause
+			div(style = 'display:none;', id = 'resetNotification')
 				|Reset to apply difficulty changes
 		br
 		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/public/js/pingPong.js', target = '_blank')
