@@ -50,6 +50,8 @@ aiBall = {
 
 function initState ()
 {
+	//ensure reset notification exists (as this function is used
+	//before it is rendered to initilize vars, as well as for resetting)
 	if (document.getElementById('resetNotification'))
 	{
 		document.getElementById('resetNotification').style.display = 'none';
@@ -352,6 +354,13 @@ function initPingPong()
 {
 	document.getElementById('startBtn').style.display = 'none';
 	setStyleByClass('hidden', 'display:inherit;');
+	requestNextAnimationFrame(getStartTime);
+}
+
+//Get the first value of time, since it is entirely unknown until supplied
+function getStartTime (time)
+{
+	prev = time;
 	requestNextAnimationFrame(pingPong);
 }
 
@@ -394,7 +403,6 @@ function pausePingPong ()
 	}
 }
 	
-
 //run one iteration of the game to display its starting state
 initState();
 update(0);
