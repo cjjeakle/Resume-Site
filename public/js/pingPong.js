@@ -243,7 +243,7 @@ function collisions (inputBall)
 				inputBall.ySpeed *= -1.20;
 			}
 		}
-		else if (inputBall.y <= left.y + (left.height / 10)) //intense up
+		else if (inputBall.y + inputBall.height <= left.y + (left.height / 10)) //intense up
 		{
 			if (inputBall.ySpeed < 0)
 			{
@@ -258,7 +258,7 @@ function collisions (inputBall)
 		{
 			inputBall.ySpeed += ballYSpeed * .05;
 		}
-		else if (inputBall.y <= left.y + (left.height / 4)) //slight up
+		else if (inputBall.y + inputBall.height <= left.y + (left.height / 4)) //slight up
 		{
 			inputBall.ySpeed -= ballYSpeed * .05;
 		}
