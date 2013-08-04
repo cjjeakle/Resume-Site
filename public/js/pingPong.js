@@ -88,10 +88,10 @@ function initState ()
 var up = false, dn = false;
 addEventListener("keydown", function (e) {
 	
-    if([38, 40].indexOf(e.keyCode) > -1)
-    {
-        e.preventDefault(); //prevent arrow key nav on the page
-    }
+	if([38, 40].indexOf(e.keyCode) > -1)
+	{
+		e.preventDefault(); //prevent arrow key nav on the page
+	}
 	if(e.keyCode == 38)
 	{
 		up = true;
