@@ -7,7 +7,7 @@ See their awesome tutorial for getting started making websites at:
 https://github.com/michiganhackers/heroku-py-demo.git
 
 ----
-## Getting Started:
+## Some Reminders From the Tutorial:
 
 #### Locally Running for the First Time
 - Install python 2.7.x and python virtual envrironment
@@ -24,7 +24,9 @@ https://github.com/michiganhackers/heroku-py-demo.git
 - `git push heroku master` Update Heroku, no need to scale.
 - `heroku open`
 
-#### Helpful Documentation
+## Other Helpful Information:
+
+#### Documentation
 - Flask: http://flask.pocoo.org/docs/quickstart/#
 - Jade: https://github.com/visionmedia/jade
 - Zurb's Foundation Framework: http://foundation.zurb.com/docs/
@@ -36,12 +38,5 @@ https://github.com/michiganhackers/heroku-py-demo.git
 - `cd path/to/resume-site/public/my-site.css`
 - `compass watch` (this watches for changes in the .scss files and updates the css)
 - Do your stuff!
-
-## Deploying the app to Heroku:
-
-#### Deploy
-1. `heroku login`
-2. `heroku create`
-3. `git push heroku master`
 
 
