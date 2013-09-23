@@ -21,18 +21,12 @@ def index():
 @app.route('/myclasses')
 def myClasses():
 
-	titles = ["This summer I am working on:",
-				"In the Fall I will Take:",
-				"I Plan to Take:",
+	titles = ["I am Currently Taking:",
+				"In the Winter I will Take:",
 				"I Have Completed:"]
 
 	# Used four "&nbsp;" in place of tab
-	classes = [["EECS 499: Directed Study",
-				"<div style = \"display: inline-block;\"><li>Continuing work on "
-				"<a href=\"https://github.com/cjjeakle/Maze-and-Blue\" target = \"_Blank\">a video game</a> "
-				"to assist children with Autism Spectrum Disorder (ASD)</li></div>"],
-				
-				["EECS 381: Object-Oriented and Advanced Programming",
+	classes = [["EECS 381: Object-Oriented and Advanced Programming",
 				"EECS 484: Database Management Systems"],
 				
 				["EECS 443: Senior Thesis Course (Honors)",
@@ -44,7 +38,11 @@ def myClasses():
 				"EECS 281: Data Structures & Algorithms",
 				"EECS 370: Computer Architecture",
 				"EECS 376: Foundations of Computer Science",
-				"EECS 481: Software Engineering"]]
+				"EECS 481: Software Engineering",
+				"EECS 499: Directed Study",
+				"<div style = \"display: inline-block;\"><li>Worked on "
+				"<a href=\"https://github.com/cjjeakle/Maze-and-Blue\" target = \"_Blank\">a video game</a> "
+				"I started in EECS 481 to assist children with Autism Spectrum Disorder (ASD)</li></div>"]]
 
 	obj = {
 		"titles": titles,
