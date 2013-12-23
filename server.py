@@ -21,28 +21,25 @@ def index():
 @app.route('/myclasses')
 def myClasses():
 
-	titles = ["I am Currently Taking:",
-				"In the Winter I will Take:",
-				"I Have Completed:"]
+	titles = ["I am Currently Taking:", "I Have Completed:"]
 
 	# Used four "&nbsp;" in place of tab
-	classes = [["EECS 381: Object-Oriented and Advanced Programming",
-				"EECS 484: Database Management Systems"],
-				
-				["EECS 443: Senior Thesis Course (Honors)",
-				"EECS 482: Introduction to Operating Systems"],
-					
-				["EECS 183: Elementary Programming Concepts",
-				"EECS 203: Discrete Mathematics",
-				"EECS 280: Programming & Data Structures",
-				"EECS 281: Data Structures & Algorithms",
-				"EECS 370: Computer Architecture",
-				"EECS 376: Foundations of Computer Science",
-				"EECS 481: Software Engineering",
-				"EECS 499: Directed Study",
-				"<div style = \"display: inline-block;\"><li>Worked on "
-				"<a href=\"https://github.com/cjjeakle/Maze-and-Blue\" target = \"_Blank\">a video game</a> "
-				"I started in EECS 481 to assist children with Autism Spectrum Disorder (ASD)</li></div>"]]
+	classes = [["EECS 443: Senior Thesis Course (Honors)",
+			"EECS 482: Introduction to Operating Systems"],
+
+			["EECS 183: Elementary Programming Concepts",
+			"EECS 203: Discrete Mathematics",
+			"EECS 280: Programming & Data Structures",
+			"EECS 281: Data Structures & Algorithms",
+			"EECS 370: Computer Architecture",
+			"EECS 376: Foundations of Computer Science",
+			"EECS 381: Object-Oriented and Advanced Programming",
+			"EECS 481: Software Engineering",
+			"EECS 484: Database Management Systems",
+			"EECS 499: Directed Study",
+			"<div style = \"display: inline-block;\"><li>Worked on "
+			"<a href=\"https://github.com/cjjeakle/Maze-and-Blue\" target = \"_Blank\">a video game</a> "
+			" to assist children with Autism Spectrum Disorder (ASD)</li></div>"]]
 
 	obj = {
 		"titles": titles,
