@@ -20,7 +20,7 @@ https://github.com/michiganhackers/heroku-py-demo.git
 #### Next Time You Develop
 - `source venv/bin/activate`
 - `python server.py` to run locally.
-- `git commit -am "commit message"`
+- `git commit -m "commit message"`
 - `git push heroku master` Update Heroku, no need to scale.
 - `heroku open`
 
