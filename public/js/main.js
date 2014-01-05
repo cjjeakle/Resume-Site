@@ -26,6 +26,7 @@ function toggleShow(obj)
 	elts = findByClass(obj, null, 'div');
 	for (i = 0; i < elts.length; i++)
 	{	
+		console.log(titles[i].innerHTML == "Navigation ▼");
 		if (titles[i].innerHTML == "Navigation ▼")
 		{
 			titles[i].innerHTML = "Navigation &#9658";
