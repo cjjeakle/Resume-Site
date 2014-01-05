@@ -20,15 +20,13 @@ function findByClass(className, domNode, tagName) {
 	return elts;
 }
 
-var hidden = false;
 function toggleShow(obj)
 {
-	hidden = !hidden;
 	titles = findByClass('navHeader', null, null);
 	elts = findByClass(obj, null, 'div');
 	for (i = 0; i < elts.length; i++)
 	{	
-		if (hidden)
+		if (titles[i].innerHTML == "Navigation ▼")
 		{
 			titles[i].innerHTML = "Navigation &#9658";
 			elts[i].style.display = "none";

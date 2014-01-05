@@ -1,7 +1,7 @@
 #nav
 	a(href = 'javascript:toggleShow(\'navContent\')')
 		h5.navHeader Navigation &#9660; 
-	div(id = 'navContent', style = 'display:inherit;').navContent
+	div(id = 'navContent', style = 'display:none;').navContent
 		ul
 			li
 				a(href = '/') Home
@@ -18,6 +18,6 @@
 			li
 				a(href = "https://github.com/cjjeakle?tab=repositories", target = "_Blank") My GitHub
 			li
-				a(href = "http://groupcha.herokuapp.com", target = "_Blank") groupCHA demo site
+				a(href = "http://groupcha.herokuapp.com", target = "_Blank") groupCHA demo
 			li
 				a(href = "http://www.linkedin.com/pub/christopher-jeakle/42/b14/a28", target = "_Blank") My LinkedIn
