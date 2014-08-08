@@ -2,6 +2,7 @@ extends template
 
 block append moreScripts
 	<link rel="stylesheet" href="css/sudoku.css">
+	script(src="js/sudokuSolver.js", type='text/javascript')
 	<meta name="description" content="A python-based sudoku solver" />
 	title
 		|Chris Jeakle | Sudoku Solver
@@ -18,18 +19,23 @@ block append content
 				br
 				br
 				a(href = 'javascript:loadExampleBoard(null)') Try this "evil" difficulty example
+
+		h5
+			|This solver does not work at the moment (I am porting it from server-side python to client-side javascript).
+			br
+			|It should be up and running soon!
 		div.sudoku
-			form(action = url, method=post, id = 'sudokuBoard')
+			.sudokuBoard
 				//create the sudoku board for i/o
 				i = 0
 				table(cellspacing = '0', cellpadding = '0').table
+					//boardNames is a 9x9 grid of unique identifiers for the squares.
+					//My local copy of pyjade doesnt play nice with string and int concatination, 
+					//so I had to generate this name grid on the server.
 					for row in boardNames
 						j = 0
 						tr
 							for col in row
-								val = ''
-								if (board[i][j] != 0)
-									val = board[i][j]
 								class = 'cell'
 								if (i % 3 == 0 and i > 0)
 									class = class + ' boldT'
@@ -40,23 +46,26 @@ block append content
 								if (j == 8)
 									class = class + ' plainR'
 								td(class = class)
-									input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = val, autocomplete = 'off').board
+									input(type = 'text', name = col, id = col, size = 1, maxlength = '1', value = '', autocomplete = 'off').board
 								j = j + 1
 						i = i + 1
-			//to make the buttons look similar, I had to make both into stylized hyperlinks
 			div.center
-				a(href='javascript:document.getElementById(\'sudokuBoard\').submit()').btn.center
+				a(href='javascript:attemptSolve()').btn.center
 						|&nbsp;Solve
 				|&nbsp;&nbsp;&nbsp;&nbsp;
 				a(href = 'javascript:clearBoard()').btn.center
 						|&nbsp;Clear&nbsp;
 		br
 		div(id = 'sudokuInfo')
-			if (annotation == null or annotation == '')
 				br
-			!=annotation
+		|View source to see the JS that drives this.
+		br
+		|Previous iterations of my solver are in  
 		a(href = 'https://github.com/cjjeakle/Resume-Site/blob/master/SudokuSolver.py/', target = '_blank')
-			|Check out the algorithm on my github
+			|Python 
+		|and 
+		a(href = 'https://github.com/cjjeakle/Sudoku-Solver/', target = '_blank')
+			|C++.
 block append rightEdge
 	|&nbsp;
 		

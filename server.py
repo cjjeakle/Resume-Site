@@ -18,34 +18,11 @@ def index():
 	};
 	return render_template('index.jade', **obj)
 
-@app.route('/myclasses')
+@app.route('/education')
 def myClasses():
-
-	titles = ["I am Currently Taking:", "I Have Completed:"]
-
-	# Used four "&nbsp;" in place of tab
-	classes = [["EECS 443: Senior Thesis Course (Honors)",
-			"EECS 482: Introduction to Operating Systems"],
-
-			["EECS 183: Elementary Programming Concepts",
-			"EECS 203: Discrete Mathematics",
-			"EECS 280: Programming & Data Structures",
-			"EECS 281: Data Structures & Algorithms",
-			"EECS 370: Computer Architecture",
-			"EECS 376: Foundations of Computer Science",
-			"EECS 381: Object-Oriented and Advanced Programming",
-			"EECS 481: Software Engineering",
-			"EECS 484: Database Management Systems",
-			"EECS 499: Directed Study",
-			"<div style = \"display: inline-block;\"><li>Worked on "
-			"<a href=\"https://github.com/cjjeakle/Maze-and-Blue\" target = \"_Blank\">a video game</a> "
-			" to assist children with Autism Spectrum Disorder (ASD)</li></div>"]]
-
 	obj = {
-		"titles": titles,
-		"classes": classes,
 	};
-	return render_template('myClasses.jade', **obj)
+	return render_template('education.jade', **obj)
 
 @app.route('/sudokusolver')
 def sudokuSolver():
@@ -55,58 +32,9 @@ def sudokuSolver():
 		for j in range(9):
 			temp.append('sq' + str(i*9+j))
 		boardNames.append(temp)
-	
-	board = []
-	for i in range(9):
-		temp = []
-		for j in range(9):
-			temp.append(0)
-		board.append(temp)
 		
 	obj = {
-		"url": "/sudokusolver",
-		"post": "post",
 		"boardNames": boardNames,
-		"board": board,
-		"annotation": "",
-	};
-	return render_template('sudokuSolver.jade', **obj)
-
-@app.route('/sudokusolver',  methods=['POST'])
-def solveSudoku():
-	boardNames = []
-	for i in range(9):
-		temp = []
-		for j in range(9):
-			temp.append('sq' + str(i*9+j))
-		boardNames.append(temp)
-		
-	board = [[0]*9 for _ in xrange(9)]
-	for i in range(9):
-		for j in range(9):
-			temp = request.form.get('sq'+str(i*9+j), '0')
-			if temp.isdigit():
-				board[i][j] = int(temp)
-	
-	annotation = "Success!"		
-	try:
-		SudokuSolver.sudokuSolver(board)
-	except SudokuSolver.Timeout:
-		annotation = ("The algorithm timed out! </br>" + 
-					"Please ensure that your puzzle is valid.</br>" +
-					"(Note: your puzzle may be too difficult for the time allotment)")
-	except SudokuSolver.TooFewGivens:
-		annotation = "Please provide more givens"
-	except SudokuSolver.SolverFailed:
-		annotation = ("The solver failed, something went wrong!</br>" +
-					"Please ensure you provided a valid puzzle")
-	
-	obj = {
-		"url": "/sudokusolver",
-		"post": "post",
-		"boardNames": boardNames,
-		"board": board,
-		"annotation": annotation,
 	};
 	return render_template('sudokuSolver.jade', **obj)
 	
