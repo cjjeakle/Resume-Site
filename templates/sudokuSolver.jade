@@ -11,17 +11,17 @@ block append content
 		h3 Solve Sudokus
 		div( style = 'font-size: 90%; line-height: 125%;')
 			p
-				|Be careful, currently the branch and bound alogrithm
-				| will simply time out on some of the most complex sudokus. 
-				| Sudokus of any difficulty from sites like
+				| Sudokus of any difficulty from sites like 
 				a(href = 'http://www.websudoku.com/', target = '_blank') websudoku.com 
-				| should be fine, though.
+				| should be solved very quickly.
 				br
 				br
-				a(href = 'javascript:loadExampleBoard(null)') Try this "evil" difficulty example
+				a(href = 'javascript:loadBoard(easyExample)') Try this "easy" difficulty example
+				br
+				a(href = 'javascript:loadBoard(evilExample)') Or try this "evil" difficulty example
 
 		h5
-			|This solver does not work at the moment (I am porting it from server-side python to client-side javascript).
+			|Note: This solver is not fullly functional yet (I am porting it from server-side python to client-side javascript).
 			br
 			|It should be up and running soon!
 		div.sudoku
