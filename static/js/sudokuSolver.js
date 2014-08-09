@@ -78,9 +78,10 @@ function sufficentGivens(board) {
 function validBoard(board) {
 	for (var i = 0; i < 9; i++) {
 		for (var j = 0; j < 9; j++) {
-			if (checkRowForNum(board, i, j, board[i*9+j]) ||
+			if (board[i*9+j] != '' &&
+				(checkRowForNum(board, i, j, board[i*9+j]) ||
 				checkColForNum(board, i, j, board[i*9+j]) ||
-				checkSubBoardForNum(board, i, j, board[i*9+j])) {
+				checkSubBoardForNum(board, i, j, board[i*9+j]))) {
 				return false;
 			}
 		}
@@ -89,9 +90,6 @@ function validBoard(board) {
 }
 
 function checkRowForNum(board, row, col, val) {
-	if(val == '') {
-		return false;
-	}
 	for(var j = 0; j < 9; j++) {
 		if(board[row*9 + j] == val && j != col) {
 			return true;
@@ -101,9 +99,6 @@ function checkRowForNum(board, row, col, val) {
 }
 
 function checkColForNum(board, row, col, val) {
-	if(val == '') {
-		return false;
-	}
 	for(var i = 0; i < 9; i++) {
 		if(board[i*9 + col] == val && i != row) {
 			return true;
@@ -115,10 +110,12 @@ function checkColForNum(board, row, col, val) {
 function checkSubBoardForNum(board, row, col, val) {
 	subBoardRow = Math.floor(row/3);
 	subBoardCol = Math.floor(col/3);
-	for(var i = 0; i < 9; i++) {
-		if((Math.floor(i/3) == subBoardRow && Math.floor(j/3) == subBoardCol) && 
-			(i != row && j != col && board[i*9 + j] == val)) {
-			return true;
+	for(var i = subBoardRow * 3; i < (subBoardRow + 1) * 3; i++) {
+		for(var j = subBoardCol * 3; j < (subBoardCol + 1) * 3; j++) {
+			if(i != row && j != col && board[i*9 + j] == val) {
+				console.log(i,j,row, col);
+				return true;
+			}
 		}
 	}
 	return false;

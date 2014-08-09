@@ -54,7 +54,7 @@ def about():
 @app.route('/<path:filename>')
 def send_pic(filename):
 	print(filename)
-	return send_from_directory('./public/', filename)
+	return send_from_directory('./static/', filename)
 
 if __name__ == '__main__':
 	# Bind to PORT if defined (environment variable on heroku)
