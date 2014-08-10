@@ -1,6 +1,5 @@
-// A sudoku solver inspired by the Peter Norvig's technique at http://norvig.com/sudoku.html
-
-
+// A sudoku solver inspired by the Peter Norvig's constraint 
+// satisfaction technique at http://norvig.com/sudoku.html
 
 /*
 ***********************************************************************
@@ -53,11 +52,11 @@ function clearBoard() {
 
 function attemptSolve() {
 	document.getElementById('sudokuInfo').innerHTML = '<br>';
-	// Ensure the provided board is valid, prompt w/ error if not
+
 	try {
 		var board = populateBoardBuffer();
 		validBoard(board);
-	} catch (err) {
+	} catch(err) {
 		document.getElementById('sudokuInfo').innerHTML = err + '<br/><br/>';
 		return;
 	}
@@ -90,22 +89,29 @@ function attemptSolve() {
 function populateBoardBuffer() {
 	var board = new Array(9*9);
 	var count = 0;
-	for (i = 0; i < 9; i++) {
-		for (j = 0; j < 9; j++) {
-			var idx = i*9+j;
-			board[idx] = document.getElementById('sq'+idx).value;
-			if (board[idx] != '' && (board[idx] < 1 || board[idx] > 9 || isNaN(board[idx]))) {
-				console.log((board[idx]), idx);
-				throw('Invalid Board State!');
-			} else if (board[idx] != '') {
-				count++;
-			}
+
+	for(idx = 0; idx < 81; idx++) {
+		board[idx] = document.getElementById('sq'+idx).value;
+
+		if(!isValidInput(board[idx])) {
+			throw('Invalid Board State (only use numbers between 1 and 9, or blanks)');
+		} else if(!isBlank(board[idx])) {
+			count++;
 		}
 	}
+
 	if(count < 17) {
 		throw ('Not Enough Givens (min 17)');
 	}
 	return board;
+}
+
+function isValidInput(square) {
+	return isBlank(square) || (square > 0 && square <= 9);
+}
+
+function isBlank(square) {
+	return square == '';
 }
 
 function validBoard(board) {
@@ -168,7 +174,7 @@ function checkSubBoardForNum(board, row, col, val) {
 
 
 /*
-"Peers" track a square's counterparts that it cannot contradict.
+"Peers" track a square's counterparts that cannot contradict it's solution.
 When a square gets a definate answer, its peers have that possibility removed.
 */
 var peers = Array(81);
@@ -196,8 +202,9 @@ for(var i = 0; i < 9; i++) {
 		}
 	}
 }
+
 function solve(board) {
-	var solutionsFound = 0;
+	var solutionsFound = {val: 0};
 	var puzzle = new Array();
 	for(var i = 0; i < 81; i++) {
 		puzzle[i] = {};
@@ -207,7 +214,7 @@ function solve(board) {
 			puzzle[i].solution = board[i];
 			puzzle[i].count = 1;
 			puzzle[i].justSolved = true;
-			solutionsFound++;
+			solutionsFound.val++;
 		}
 		else {
 			puzzle[i].state = new Array(null, true, true, true, true, true, true, true, true, true);
@@ -216,15 +223,40 @@ function solve(board) {
 		}
 	}
 
-	while(removeConflicts(solutionsFound, puzzle));
+	while(removeConflicts(solutionsFound, puzzle, {}));
 
-	/*if(solutionsFound != 81) {
+	if(solutionsFound.val != 81) {
 		puzzle = depthFirstSearch(solutionsFound, puzzle)
-	}*/
+	}
 
 	for (i = 0; i < 81; i++) {
 		board[i] = puzzle[i].solution;
 	}
+}
+
+function removeConflicts(solutionsFound, puzzle, conflictErrorOccured) {
+	var anyChangeMade = false;
+	for(var i = 0; i < 81; i++) {
+		if(puzzle[i].justSolved) {
+			peers[i].forEach(function(peer){
+				if(puzzle[peer].solution == puzzle[i].solution) {
+					conflictErrorOccured.val = true;
+					return false;
+				}
+				if(puzzle[peer].state[puzzle[i].solution]) {
+					puzzle[peer].state[puzzle[i].solution] = false;
+					puzzle[peer].count--;
+					if(puzzle[peer].count == 1) {
+						applyOnlySolution(puzzle[peer]);
+						solutionsFound.val++;
+					}
+					anyChangeMade = true;
+				}
+			});
+			puzzle[i].justSolved = false;
+		}
+	}
+	return anyChangeMade;
 }
 
 function applyOnlySolution(square) {
@@ -236,31 +268,35 @@ function applyOnlySolution(square) {
 	}
 }
 
-function removeConflicts(solutionsFound, puzzle) {
-	var anyChangeMade = false;
-	for(var i = 0; i < 81; i++) {
-		if(puzzle[i].justSolved) {
-			peers[i].forEach(function(peer){
-				if(puzzle[peer].state[puzzle[i].solution]) {
-					puzzle[peer].state[puzzle[i].solution] = false;
-					puzzle[peer].count--;
-					if(puzzle[peer].count == 1) {
-						applyOnlySolution(puzzle[peer]);
-						solutionsFound++;
+function depthFirstSearch(solutionsFound, puzzle) {
+	var stack = new Array();
+	stack.push({solutionsFound: solutionsFound, puzzle: puzzle});
+	for(;;) {
+		var tempPuzzle = stack.pop();
+		for(var i = 0; i < 81; i++) {
+			for(var j = 1; j < 10; j++) {
+				var  workingSet = JSON.parse(JSON.stringify(tempPuzzle));
+				if(workingSet.puzzle[i].state[j]) {
+					workingSet.puzzle[i].solution = j;
+					workingSet.puzzle[i].state = new Array(null, false, false, false, false, false, false, false, false, false);
+					workingSet.puzzle[i].state[j] = true;
+					workingSet.puzzle[i].count = 1;
+					workingSet.puzzle[i].justSolved = true;
+					workingSet.solutionsFound.val++;
+
+					var conflictErrorOccured = {val: false};
+					while(removeConflicts(workingSet.solutionsFound, workingSet.puzzle, conflictErrorOccured));
+					
+					if(workingSet.solutionsFound.val == 81) {
+						return workingSet.puzzle;
+					} else if (!conflictErrorOccured) {
+						stack.push(workingSet);
+						break;
 					}
-					anyChangeMade = true;
 				}
-			});
-			puzzle[i].justSolved = false;
+			}
 		}
 	}
-	return anyChangeMade;
 }
-
-function depthFirstSearch(solutionsFound, puzzle) {
-
-}
-
-
 
 

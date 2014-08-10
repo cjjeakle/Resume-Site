@@ -3,7 +3,7 @@ extends template
 block append moreScripts
 	<link rel="stylesheet" href="css/sudoku.css">
 	script(src="js/sudokuSolver.js", type='text/javascript')
-	<meta name="description" content="A python-based sudoku solver" />
+	<meta name="description" content="A javascript sudoku solver" />
 	title
 		|Chris Jeakle | Sudoku Solver
 block append content
@@ -13,17 +13,15 @@ block append content
 			p
 				| Sudokus of any difficulty from sites like 
 				a(href = 'http://www.websudoku.com/', target = '_blank') websudoku.com 
-				| should be solved very quickly.
+				| should be solved very quickly. 
+			p
+				|Be aware that there exist worst case inputs that will be slow. 
+				| Also, there are some small bugs I am still addressing where certain inputs raise an exception.
 				br
 				br
 				a(href = 'javascript:loadBoard(easyExample)') Try this "easy" difficulty example
 				br
 				a(href = 'javascript:loadBoard(evilExample)') Or try this "evil" difficulty example
-
-		h5
-			|Note: This solver is not fullly functional yet (I am porting it from server-side python to client-side javascript).
-			br
-			|It should be up and running soon!
 		div.sudoku
 			.sudokuBoard
 				//create the sudoku board for i/o
