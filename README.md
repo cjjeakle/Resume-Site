@@ -35,7 +35,7 @@ https://github.com/michiganhackers/heroku-py-demo.git
 - `[sudo] gem install zurb-foundation`
 - `[sudo] gem install compass`
 - `[sudo] gem install sass`
-- `cd path/to/personal-site/public/my-site.css`
+- `cd path/to/personal-site/static/my-site.css`
 - `compass watch` (this watches for changes in the .scss files and updates the css)
 - Do your stuff!
 
