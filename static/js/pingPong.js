@@ -12,7 +12,7 @@ var aiAccuracy = 1.15; //how far ahead predictions are for the AI
 var aiSpeed = 115; //the speed of the AI's paddle movement
 var playerSpeed = 192; //the speed of the player's paddle
 var ballYSpeed = 128; //the default ball speed
-var prev = 0; //the previous value of time from "requestNextAnimationFrame()"
+var prev = 0; //the previous value of time from "requestAnimationFrame()"
 var paused = false; //whether or not the game is paused
 
 
@@ -346,7 +346,7 @@ function pingPong(time)
 	}
 
 	prev = time;
-	requestNextAnimationFrame(pingPong);
+	requestAnimationFrame(pingPong);
 }
 
 //Run the game
@@ -354,14 +354,14 @@ function initPingPong()
 {
 	document.getElementById('startBtn').style.display = 'none';
 	setStyleByClass('hidden', 'display:inherit;');
-	requestNextAnimationFrame(getStartTime);
+	requestAnimationFrame(getStartTime);
 }
 
 //Get the first value of time, since it is entirely unknown until supplied
 function getStartTime (time)
 {
 	prev = time;
-	requestNextAnimationFrame(pingPong);
+	requestAnimationFrame(pingPong);
 }
 
 function setPingPongDifficulty(diff)
