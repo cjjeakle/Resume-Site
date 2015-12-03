@@ -1,6 +1,8 @@
 ## My Personal Website
 
-Visit the live site: http://www.chrisjeakle.com
+This is an old version of my personal website. 
+The current version can be found at: 
+https://github.com/cjjeakle/cjjeakle.github.io
 
 Built with the help of the Michigan Hackers.
 See their awesome tutorial for getting started making websites at: 
